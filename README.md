@@ -1,21 +1,38 @@
-# React + TypeScript + Vite
+# Giorgio Micolitti — Professional Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+New editorial portfolio for Giorgio Micolitti, focused on civil and geotechnical engineering, railway infrastructure, underground works, bridges, project leadership, publications and technical media.
 
-While this project uses React, Vite supports many popular JS frameworks. [See all the supported frameworks](https://vitejs.dev/guide/#scaffolding-your-first-vite-project).
+## Current implementation
 
-## Deploy Your Own
+- React + TypeScript + Vite
+- Italian / English interface
+- Responsive editorial layout
+- Career timeline and expertise areas
+- Selected project narratives
+- Publications and awards
+- YouTube thumbnail-first video loading
+- SEO metadata, Person structured data, robots and sitemap
+- Reduced-motion accessibility support
 
-Deploy your own Vite project with Vercel.
+## Content source hierarchy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/framework-boilerplates/vite-react&template=vite-react)
+1. Updated LinkedIn CV supplied by Giorgio Micolitti
+2. Current professional website content
+3. Institutional and public sources
 
-_Live Example: https://vite-react-example.vercel.app_
+## Asset migration
 
-### Deploying From Your Terminal
+The first branch uses a small set of legacy Google Sites image references while the local photo/video archive is being mapped. These references are intentionally isolated in `src/App.tsx` and should be replaced by local optimized WebP/AVIF assets once the source archive is available.
 
-You can deploy your new Vite project with a single command from your terminal using [Vercel CLI](https://vercel.com/download):
+## Development
 
-```shell
-$ vercel
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
 ```
