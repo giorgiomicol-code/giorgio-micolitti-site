@@ -20,6 +20,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Restore local image assets
+        shell: bash
+        run: |
+          mkdir -p public/images
+          if compgen -G "image-data/*.b64" > /dev/null; then
+            for f in image-data/*.b64; do
+              name="$(basename "$f" .b64)"
+              base64 --decode "$f" > "public/images/$name"
+            done
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
