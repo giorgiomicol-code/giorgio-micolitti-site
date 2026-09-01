@@ -24,10 +24,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -s public/images/arco-sottovia.webp
-          test -s public/images/ponte-zambra.webp
-          test -s public/images/interno-galleria.webp
-          test -s public/images/consolidamento-pendio.webp
+          test -s public/images/ritratto.webp
+          test "$(find public/images -name '*.webp' | wc -l)" -ge 30
           ! grep -R "lh3.googleusercontent.com/sitesv/" src public index.html
 
       - name: Setup Node
