@@ -1,0 +1,1 @@
+Image assets are committed as binary WebP files through Git objects. Do not replace with base64 text files.
