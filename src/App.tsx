@@ -1,107 +1,244 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 type Lang = 'it' | 'en'
 type Copy = { it: string; en: string }
-type VideoItem = { id: string; title: Copy; meta: Copy; text: Copy }
 
-const copy = {
-  nav: {
-    profile: { it: 'Profilo', en: 'Profile' }, experience: { it: 'Esperienza', en: 'Experience' }, projects: { it: 'Progetti', en: 'Projects' }, publications: { it: 'Pubblicazioni', en: 'Publications' }, insights: { it: 'Insights', en: 'Insights' }, contact: { it: 'Contatti', en: 'Contact' },
+const profileParagraphs: Copy[] = [
+  {
+    it: "Ingegnere Civile e Project & Construction Manager con oltre 24 anni di esperienza nella progettazione e realizzazione di infrastrutture civili di trasporto, pilota UAV certificato EASA A1/A2/A3. Ha maturato la propria esperienza nella Direzione Investimenti, nella Direzione Tecnica e nella Direzione Centrale Strategie e Pianificazione di Ferrovie dello Stato Italiane, per poi ricoprire per 11 anni ruoli di responsabilità crescente nella Direzione Operativa Territoriale di Roma di RFI. Attualmente è Responsabile della Struttura di Ingegneria dei Collegamenti Ferroviari di Stretto di Messina S.p.A.",
+    en: "Civil Engineer and Project & Construction Manager with more than 24 years of experience in the design and delivery of civil transport infrastructure, and an EASA A1/A2/A3 certified UAV pilot. His career has included FS Italiane Investment, Technical, and Central Strategy & Planning directorates, followed by 11 years of progressively senior responsibilities within RFI's Rome Territorial Operations. He is currently Head of Railway Connections Engineering at Stretto di Messina S.p.A."
   },
-  heroEyebrow: { it: 'Ingegneria civile · infrastrutture ferroviarie · grandi opere', en: 'Civil engineering · railway infrastructure · major works' },
-  heroTitle: { it: 'Ingegneria e leadership per infrastrutture ferroviarie complesse.', en: 'Engineering and leadership for complex railway infrastructure.' },
-  heroText: { it: 'Project & Construction Manager con oltre 24 anni di esperienza nelle infrastrutture civili per il settore ferroviario e delle costruzioni. Un percorso che integra ingegneria civile e geotecnica, opere in sotterraneo, ponti, sicurezza in galleria, gestione di investimenti e coordinamento multidisciplinare.', en: 'Project & Construction Manager with more than 24 years of experience in civil infrastructure for railways and construction. A career combining civil and geotechnical engineering, underground works, bridges, tunnel safety, investment management and multidisciplinary leadership.' },
-  exploreProjects: { it: 'Esplora i progetti', en: 'Explore projects' }, professionalProfile: { it: 'Profilo professionale', en: 'Professional profile' },
-}
-
-const stats = [
-  { value: '24+', label: { it: 'anni di esperienza', en: 'years of experience' } },
-  { value: '100', label: { it: 'persone coordinate direttamente', en: 'people directly supervised' } },
-  { value: '2002–11', label: { it: 'rappresentanze tecniche internazionali', en: 'international technical representation' } },
-  { value: '110L', label: { it: 'laurea in Ingegneria Civile', en: 'Civil Engineering degree' } },
-]
-
-const expertise = [
-  { n: '01', title: { it: 'Infrastrutture ferroviarie', en: 'Railway infrastructure' }, text: { it: 'Pianificazione, progettazione, costruzione e manutenzione di opere civili in superficie e in sotterraneo, linee ferroviarie, armamento, stazioni e impianti speciali.', en: 'Planning, design, construction and maintenance of surface and underground civil works, railway lines, trackwork, stations and special systems.' } },
-  { n: '02', title: { it: 'Gallerie e opere in sotterraneo', en: 'Tunnels & underground works' }, text: { it: 'Geotecnica, aerodinamica in galleria, ingegneria del fuoco, sicurezza di esercizio in sotterraneo, interoperabilità, analisi del rischio, mitigazione sismica, mitigazione acustica e mitigazione del dissesto idrogeologico.', en: 'Geotechnics, tunnel aerodynamics, fire engineering, underground operational safety, interoperability, risk analysis, seismic mitigation, noise mitigation and hydrogeological risk mitigation.' } },
-  { n: '03', title: { it: 'Ponti e opere civili', en: 'Bridges & civil works' }, text: { it: 'Rinnovo, sostituzione e adeguamento di opere ferroviarie, con presidio su tempi, costi, qualità, sicurezza e continuità dell’esercizio.', en: 'Renewal, replacement and upgrading of railway assets, with control of time, cost, quality, safety and operational continuity.' } },
-  { n: '04', title: { it: 'Project & Construction Management', en: 'Project & Construction Management' }, text: { it: 'Baseline, budget, contratti, stakeholder, risk analysis e coordinamento di team multidisciplinari lungo l’intero ciclo di vita del progetto.', en: 'Baseline, budget, contracts, stakeholders, risk analysis and multidisciplinary team leadership across the full project lifecycle.' } },
-  { n: '05', title: { it: 'Strategia e investimenti', en: 'Strategy & investment' }, text: { it: 'Capital budgeting, business plan, KPI, analisi di mercato, M&A, Track Access Charge e pianificazione industriale del Gruppo FS. Analisi e monitoraggio della finanza e del mercato immobiliare.', en: 'Capital budgeting, business plans, KPIs, market analysis, M&A, Track Access Charge and FS Group industrial planning. Analysis and monitoring of finance and the real-estate market.' } },
-  { n: '06', title: { it: 'Rappresentanze tecniche internazionali', en: 'International technical representation' }, text: { it: 'Attività con AEIF, Commissione Europea, European Union Agency for Railways, UIC, FIT, BBT SE e LTF/TELT su sicurezza, interoperabilità, manutenzione e resistenza al fuoco delle strutture in galleria.', en: 'Technical representation with AEIF, the European Commission, the European Union Agency for Railways, UIC, FIT, BBT SE and LTF/TELT on safety, interoperability, maintenance and fire resistance of tunnel structures.' } },
+  {
+    it: "Specializzato in infrastrutture ferroviarie civili — con particolare focus su ponti, gallerie e armamento — valutazione della redditività degli investimenti, standardizzazione tecnica con autorità nazionali ed europee, gestione di sito e HSE, due diligence, nuove costruzioni e realizzazione di stazioni. Esperienza consolidata anche in impianti tecnologici speciali, sostenibilità, mitigazione sismica e acustica, risk analysis e ottimizzazione dei consumi energetici.",
+    en: "Specialised in civil railway infrastructure — particularly bridges, tunnels and trackwork — investment profitability assessment, technical standardisation with national and European authorities, site and HSE management, due diligence, new construction and station delivery. Additional consolidated experience includes special technological systems, sustainability, seismic and acoustic mitigation, risk analysis and energy optimisation."
+  },
+  {
+    it: "A livello internazionale è stato membro di numerosi gruppi di lavoro presso le principali istituzioni europee di settore (UIC, AEIF, CER, EU-FIT) e ha collaborato con le principali partecipate RFI in ambito gallerie transfrontaliere (Brenner Basis Tunnel e Torino–Lione). In FS Italiane ha affiancato a queste competenze la definizione di strategie industriali e di mercato di Gruppo, occupandosi per diversi anni della pianificazione e del monitoraggio dei KPI per lo sviluppo strategico del business immobiliare e di trasporto.",
+    en: "Internationally, he served in working groups at major European rail-sector institutions (UIC, AEIF, CER, EU-FIT) and collaborated with RFI-associated cross-border tunnel organisations, including Brenner Base Tunnel and Turin–Lyon. At FS Italiane he also worked on Group industrial and market strategy, planning and monitoring KPIs for the strategic development of real-estate and transport businesses."
+  },
+  {
+    it: "Le competenze manageriali trasversali sono state sviluppate attraverso un Executive Master in General Management e consolidate all'interno della Direzione Strategie di Ferrovie dello Stato Italiane S.p.A., con impatto diretto sulla pianificazione industriale del Gruppo FS: individuazione e reportistica dei rischi, proposta di soluzioni a supporto del Direttore Strategie di Gruppo.",
+    en: "Cross-functional management skills were developed through an Executive Master in General Management and consolidated within FS Italiane's Strategy Directorate, contributing directly to Group industrial planning through risk identification and reporting and the development of solutions in support of the Group Strategy Director."
+  },
+  {
+    it: "Conoscenza completa dell'intero processo realizzativo — dall'ideazione al completamento del progetto — con capacità di selezionare efficacemente le risorse operative e allineare i processi di pianificazione e budgeting. Ruolo di collegamento, guida e motivazione per team, consulenti, enti locali, subappaltatori e clienti, per la consegna dei progetti nei tempi, nel budget e secondo i più elevati standard qualitativi. Esperienza nella gestione di team eterogenei, con supervisione diretta fino a circa 100 persone in cinque dipartimenti.",
+    en: "Complete knowledge of the delivery process — from concept to completion — with the ability to select operational resources and align planning and budgeting processes. A connecting, leadership and motivational role across teams, consultants, local authorities, subcontractors and clients, supporting delivery on time, within budget and to high quality standards. Experience managing heterogeneous teams, with direct supervision of up to approximately 100 people across five departments."
+  },
+  {
+    it: "Docente di Tecnica dei Cantieri Infrastrutturali presso il Master Sapienza in Ingegneria delle Infrastrutture e dei Sistemi Ferroviari (IIS), edizioni 2020, 2021 e 2022.",
+    en: "Lecturer in Infrastructure Construction Site Techniques within Sapienza University's Master in Infrastructure and Railway Systems Engineering (IIS), editions 2020, 2021 and 2022."
+  },
 ]
 
 const experience = [
-  { years: '2023 — oggi', yearsEn: '2023 — present', role: { it: 'Dirigente RFI / Stretto di Messina · Responsabile Ingegneria Collegamenti Ferroviari', en: 'RFI Executive / Stretto di Messina · Head of Railway Connections Engineering' }, org: 'Stretto di Messina S.p.A. · Roma', text: { it: 'Responsabile della Struttura Organizzativa “Ingegneria Collegamenti Ferroviari”. Focus sulle opere ferroviarie connesse al Ponte sullo Stretto e sul coordinamento tecnico del relativo sistema infrastrutturale.', en: 'Head of the Railway Connections Engineering organizational unit, focused on the railway works connected with the Strait of Messina Bridge and technical coordination of the related infrastructure system.' } },
-  { years: '2017 — 2023', role: { it: 'Head of Civil Engineering Tracks, Property Assets', en: 'Head of Civil Engineering Tracks, Property Assets' }, org: 'RFI · DOIT Roma', text: { it: 'Responsabile della Struttura Organizzativa Ingegneria Civile: definizione standard, design review, contratti, pianificazione e manutenzione di strade, binari, ponti, gallerie, tecnologie e sistemi di sicurezza.', en: 'Head of the Civil Engineering organizational unit: standards, design review, contracts, planning and maintenance of roads, tracks, bridges, tunnels, technologies and safety systems.' } },
-  { years: '2011 — 2017', role: { it: 'Project & Construction Management · Opere Civili, Gallerie, Fabbricati e Sistemi Speciali', en: 'Project & Construction Management · Civil Works, Tunnels, Buildings & Special Systems' }, org: 'RFI · Roma', text: { it: 'Ruoli progressivi nella gestione di opere civili e contratti, dalla sicurezza in galleria alla responsabilità delle strutture Opere Civili, Fabbricati e Impianti Speciali.', en: 'Progressive responsibilities in civil works and contracts, from tunnel safety to leadership of Civil Works, Buildings and Special Systems units.' } },
-  { years: '2009 — 2011', role: { it: 'Infrastructure & Transport Strategy Manager · Business Development', en: 'Infrastructure & Transport Strategy Manager · Business Development' }, org: 'Ferrovie dello Stato Italiane S.p.A.', text: { it: 'Analisi mercato UE, Business Plan, M&A, KPI, pianificazione industriale, finanza immobiliare e regolazione dell’accesso all’infrastruttura ferroviaria.', en: 'EU market analysis, business planning, M&A, KPIs, industrial planning, real-estate finance and railway infrastructure access regulation.' } },
-  { years: '2002 — 2009', role: { it: 'Infrastructure Planning · Underground Structures & Safety', en: 'Infrastructure Planning · Underground Structures & Safety' }, org: 'RFI S.p.A.', text: { it: 'Progettazione e manutenzione di opere civili, safety in railway tunnels, fire engineering, validazione di progetti e attività di standardizzazione europea.', en: 'Civil works design and maintenance, railway tunnel safety, fire engineering, project validation and European standardisation activities.' } },
-  { years: '2000 — 2002', role: { it: 'Tecnico / Project Engineer', en: 'Technical Officer / Project Engineer' }, org: 'ASL Latina · DMS Geotechnical Engineering', text: { it: 'Prime esperienze professionali tra patrimonio immobiliare e ingegneria geotecnica.', en: 'Early professional experience spanning property assets and geotechnical engineering.' } },
+  ['Nov 2023 — Presente','Responsabile Ingegneria Collegamenti Ferroviari','Stretto di Messina S.p.A. · Roma','Guida la Struttura Organizzativa “Ingegneria Collegamenti Ferroviari” di Stretto di Messina S.p.A.'],
+  ['Dic 2017 — Set 2023','Responsabile Ingegneria Civile, Armamento, Patrimonio e Autorizzazioni, Ponti e Verifiche','RFI S.p.A. · Direzione Operativa Infrastrutture Roma','Guida la Struttura di Ingegneria Civile con circa 100 risorse e circa 1 miliardo di euro di investimenti; prima parte dell’Anello Ferroviario di Roma, adeguamento D4 del Nodo di Roma con 38 nuovi ponti, certificazione PC80 TEN-T, sicurezza in 16 gallerie e oltre 20 interventi complessivi in galleria.'],
+  ['Mar 2016 — Nov 2017','Responsabile Opere Civili, Fabbricati e Impianti Speciali','RFI S.p.A. · Direzione Territoriale Produzione Roma','Coordina progettazione e lavori della linea Vigna Clara–Valle Aurelia; upgrade TEN-T; stazioni, armamento e pensiline; piano annuale lavori, uffici di direzione lavori e strumenti contrattuali.'],
+  ['Mag 2014 — Feb 2016','Responsabile U.O. Team Sviluppo Locale Opere Civili','RFI S.p.A. · Direzione Territoriale Produzione Roma','Guida lavori di armamento nei PRG di Roma Tiburtina, Casilina, Scalo San Lorenzo e Campo Leone; raccordi ferroviari; 56 km di barriere antirumore AV Roma–Napoli; controllo opere d’arte, rischio in sotterraneo e vulnerabilità sismica.'],
+  ['Mag 2011 — Apr 2014','Assistente Project Manager e Referente Task Force Sicurezza nelle Gallerie','RFI S.p.A. · Direzione Territoriale Produzione Roma','Dirige lavori civili e tecnologici; coordina sicurezza CSP/CSE per interventi fino a 15 milioni di euro; gestisce stakeholder e conduce analisi di rischio e vulnerabilità sismica.'],
+  ['Mag 2009 — Apr 2011','Referente Pianificazione Industriale e Monitoraggio KPI – Business Immobiliare e Trasporto','Ferrovie dello Stato Italiane S.p.A. · Direzione Centrale Strategie e Pianificazione','Pianificazione industriale Real Estate, Business Plan e operazioni straordinarie, mercati europeo e nazionale, KPI di Gruppo e gruppi UIC Financial Indicators / Statistics.'],
+  ['Nov 2006 — Apr 2009','Ingegnere di Progetto – Opere Civili, Strutture in Sotterraneo e Sicurezza','RFI S.p.A. · Direzione Tecnica, Ingegneria Civile','Rappresentanza europea AEIF, CEN, UIC, FIT; gallerie transfrontaliere BBT e Torino–Lione; verifiche di appaltabilità >20 M€; aerodinamica AV e nuove tecnologie in galleria.'],
+  ['Apr 2002 — Ott 2006','Ingegnere di Progetto – Progettazione e Pianificazione Infrastrutture','RFI S.p.A. · Direzione Investimenti','Procedure per diagnosi e manutenzione delle strutture in sotterraneo; modelli prestazionali di rischio; innovazione tecnologica; conformità sicurezza gallerie AV e dossier economico-finanziari per il Comitato Investimenti.'],
+  ['Apr 2001 — Apr 2002','Ingegnere di Progetto','DMS Engineering S.r.l.','Progettazione geotecnica e strutturale di opere stradali, ferroviarie e civili, in superficie e in sotterraneo.'],
+  ['Lug 2000 — Apr 2001','Ingegnere – Area Tecnico-Patrimoniale','Azienda U.S.L. Latina','Valutazioni di sicurezza statica degli asset immobiliari dell’Azienda.'],
 ]
 
-const projects = [
-  { code: 'CURRENT FOCUS', title: { it: 'Collegamenti ferroviari del Ponte sullo Stretto', en: 'Railway connections to the Strait of Messina Bridge' }, meta: { it: 'Stretto di Messina S.p.A. · 2023—oggi', en: 'Stretto di Messina S.p.A. · 2023—present' }, text: { it: 'Una fase professionale dedicata alle opere ferroviarie e alle interazioni con il tessuto urbano e infrastrutturale dello Stretto, con particolare attenzione agli aspetti geotecnici, alla sicurezza degli scavi e alla protezione delle preesistenze.', en: 'A professional focus on railway works and their interaction with the urban and infrastructure fabric of the Strait area, with particular attention to geotechnics, excavation safety and protection of existing structures.' }, image: 'https://lh3.googleusercontent.com/sitesv/AG8ngQVOM9n0zU1ZI63snJf9fRMLwfesRUtolW7P4qlV2ZqoyTr-xt-BSxNq2_Vim6nMEEpl_wDhUiMP0mel0Lp6VpQ2Tv9xXvW9nlBEih563JZNyYvvfz-mz-RVFs3y5heyHOVOXyOYTpIQstWbq0F5sYhLu7ubZZSA_50xkpABxkq7F3ilW0j8Qnt0hwpC_k1H6qubIatU0u-EWxhA_mEHATFDlR2UFanHEPO54zfgFVc=w1280' },
-  { code: 'CIVIL WORKS', title: { it: 'Ponti, rinnovi e sostituzioni sulla rete ferroviaria', en: 'Railway bridges, renewals and replacements' }, meta: { it: 'RFI · DOIT Roma', en: 'RFI · Rome Territorial Operations' }, text: { it: 'Interventi su opere vetuste, sostituzioni, vari e soluzioni costruttive complesse eseguite in finestre operative ristrette e in contesti ferroviari in esercizio.', en: 'Renewal and replacement of ageing assets, bridge launches and complex construction solutions delivered within constrained railway possessions.' }, image: 'https://lh3.googleusercontent.com/sitesv/AG8ngQVl_mYL-lUpp4BQw_sdGDOMnefqooGamSISCwKn--bp0KOXrMNLWyMjkvJIKSVLCD0IpQwKAyMUHkHE2-VoDZUjDkB1fLDqiiOyhdcIMa-1IPTfKIcgtKFuZFJqwwUP0Kfy_R8RL1iob4csQ3Sm-oDnL5bzB-PFzEL1u_Hney0szV6Zwh5OIZIgJF0AdLQy_mYw0eVC1oSTx8M1wCmlimsgx72IBRZPzxxpCoVh=w1280' },
-  { code: 'INTEROPERABILITY', title: { it: 'Adeguamento infrastrutturale e interoperabilità ferroviaria europea', en: 'Infrastructure upgrading and European railway interoperability' }, meta: { it: 'RFI · standard e rete TEN-T', en: 'RFI · standards and TEN-T network' }, text: { it: 'Esperienza nell’adeguamento delle opere civili alle esigenze del traffico merci europeo, nella valutazione della sicurezza e nei processi di standardizzazione con organismi nazionali e UE.', en: 'Experience in civil infrastructure upgrades for European freight traffic, safety assessment and standardisation activities with national and EU bodies.' }, image: 'https://lh3.googleusercontent.com/sitesv/AG8ngQWUdLZQGIoOEEpQ8GYhRA9z92KbfuUE0ywsRjnDEzG1RbOIlJgLgfP_NOE8MqqvTOIM6Ro8jumzFkI97qcfhlO5qfnnRETWzuzd4P2RbSpENnDiQcqGSPesB9w3bCT9egDwdWbsGtG2Ue_KUHVQ12IUnTH6cHdy6C9KShcTEbpRMQ_KpP8-5lRINsWBhwt9YQcr--IN-fEXMZEt=w1280' },
-  { code: 'UNDERGROUND', title: { it: 'Gallerie: stabilità, sicurezza e fire engineering', en: 'Tunnels: stability, safety and fire engineering' }, meta: { it: 'RFI · attività tecnica e scientifica', en: 'RFI · technical and scientific activity' }, text: { it: 'Un filo continuo della carriera: geotecnica delle cavità sotterranee, sicurezza in esercizio, fenomeni aerodinamici, normativa europea e progettazione antincendio.', en: 'A recurring career theme: underground geotechnics, operational safety, aerodynamic phenomena, European regulation and fire-safe design.' }, image: 'https://lh3.googleusercontent.com/sitesv/AG8ngQVYg55s_HVtxVA4pEpCxrZbw-A21nrsycRFDLnQrpB93iv5khYzuQ-bTw5ZNZPtoL8WGVMbZhCDbEYoRmgpMdrNBUuqDCiHIeUP2rCcbs0vRtmsZaQ-TJEPCAnVtPntbM5rpGkzYBXQwKHO9K_yG4iJodUWsd3iF4t71OlB50L9Ane5U7o-M4PjY6R5SAXdX2r7KOz8aSKFRCo1w5X6JO6_af1VxoEwAe5sTGGbGAg=w1280' },
+const expertise: Copy[] = [
+  {it:'Ingegneria civile applicata alle infrastrutture ferroviarie',en:'Civil engineering for railway infrastructure'},
+  {it:'Opere in sotterraneo, gallerie e armamento',en:'Underground works, tunnels and trackwork'},
+  {it:'Fire Engineering e sicurezza antincendio in galleria',en:'Fire engineering and tunnel fire safety'},
+  {it:'Aerodinamica gallerie e treni Alta Velocità',en:'Tunnel aerodynamics and high-speed trains'},
+  {it:'Risk analysis, mitigazione sismica e idrogeologica',en:'Risk analysis, seismic and hydrogeological mitigation'},
+  {it:'Specifiche Tecniche di Interoperabilità (TSI) e normativa UE',en:'Technical Specifications for Interoperability (TSI) and EU regulation'},
+  {it:'Project & Construction Management',en:'Project & Construction Management'},
+  {it:'Capital budgeting e valutazioni economico-finanziarie',en:'Capital budgeting and economic-financial appraisal'},
+  {it:'Pianificazione e controllo costi / tempi / qualità',en:'Cost, schedule and quality planning and control'},
+  {it:'Coordinamento sicurezza cantieri (D.Lgs. 81/08 – CSP/CSE)',en:'Construction-site safety coordination'},
+  {it:'Collaudo statico e verifiche tecnico-amministrative (CTA)',en:'Structural testing and technical-administrative inspection'},
+  {it:'Leadership di team eterogenei',en:'Leadership of heterogeneous teams'},
+]
+
+const areas: Copy[] = [
+  {it:'Ponti e opere d’arte ferroviarie',en:'Railway bridges and civil structures'},
+  {it:'Gallerie, sicurezza e fire engineering',en:'Tunnels, safety and fire engineering'},
+  {it:'Armamento, stazioni e impianti speciali',en:'Trackwork, stations and special systems'},
+  {it:'Corridoi TEN-T e interoperabilità',en:'TEN-T corridors and interoperability'},
+  {it:'Potenziamento, rinnovo e manutenzione della rete',en:'Network upgrading, renewal and maintenance'},
+  {it:'Strategia, investimenti e capital budgeting',en:'Strategy, investments and capital budgeting'},
+  {it:'Collaudi, verifiche e certificazioni tecniche',en:'Testing, inspections and technical certification'},
+  {it:'Standardizzazione e rappresentanza tecnica europea',en:'European technical standardisation and representation'},
+]
+
+const results: Copy[] = [
+  {it:'≈ 1 miliardo € · investimenti infrastrutturali realizzati 2017–2023',en:'≈ €1 billion · infrastructure investments delivered 2017–2023'},
+  {it:'38 · nuovi ponti per l’adeguamento D4 del Nodo di Roma',en:'38 · new bridges for Rome node D4 load-category upgrading'},
+  {it:'PC80 · certificazione del corridoio TEN-T Scandinavia–Mediterraneo',en:'PC80 · certification of the Scandinavian–Mediterranean TEN-T corridor'},
+  {it:'20+ · interventi complessivi in galleria',en:'20+ · tunnel interventions delivered'},
+  {it:'16 · gallerie con interventi di sicurezza tecnologica e civile',en:'16 · tunnels with technological and civil safety upgrades'},
+  {it:'≈ 100 · persone coordinate direttamente',en:'≈ 100 · people directly supervised'},
+  {it:'5 · dipartimenti coordinati',en:'5 · departments coordinated'},
+  {it:'24+ · anni di esperienza professionale',en:'24+ · years of professional experience'},
+  {it:'15 M€ · valore fino al quale ha coordinato CSP/CSE',en:'€15m · projects up to this value under CSP/CSE safety coordination'},
+  {it:'56 km · barriere antirumore riprogettate sulla AV Roma–Napoli',en:'56 km · noise barriers redesigned on the Rome–Naples high-speed line'},
+  {it:'> 20 M€ · progetti verificati come Organismo di Ispezione Tipo B',en:'> €20m · projects reviewed as a Type B Inspection Body'},
+  {it:'3 · edizioni del Master Sapienza: 2020, 2021, 2022',en:'3 · Sapienza Master editions: 2020, 2021, 2022'},
+]
+
+const diary = [
+  ['arco-sottovia.webp','Dal ponte ad arco in muratura al sottovia scatolare','From masonry arch bridge to box underpass'],
+  ['ponte-zambra.webp','Ponte Zambra','Zambra bridge'],
+  ['interno-galleria.webp','Interno galleria: opere, sicurezza e manutenzione','Tunnel interior: works, safety and maintenance'],
+  ['consolidamento-pendio.webp','Consolidamento e mitigazione del dissesto idrogeologico','Slope stabilisation and hydrogeological risk mitigation'],
+  ['posa-micropali.webp','Posa di micropali','Micropile installation'],
+  ['restauro-ponte-storico.webp','Restauro di ponte storico','Historic bridge restoration'],
+  ['demolizione-viadotto.webp','Demolizione di viadotto','Viaduct demolition'],
+  ['sottovia-aereo.webp','Sottovia ferroviario — vista aerea','Railway underpass — aerial view'],
 ]
 
 const publications = [
-  { year: '2009', title: { it: 'La normativa europea per la sicurezza delle gallerie', en: 'European regulations for railway tunnel safety' }, type: { it: 'Tecnica Professionale · Premio CIFI 2011', en: 'Tecnica Professionale · CIFI Award 2011' } },
-  { year: '2006', title: { it: 'Fenomeni aerodinamici indotti dai treni AV in galleria', en: 'Aerodynamic phenomena induced by high-speed trains in tunnels' }, type: { it: 'Ingegneria Ferroviaria · Premio CIFI 2008', en: 'Ingegneria Ferroviaria · CIFI Award 2008' } },
-  { year: '2003', title: { it: 'Sicurezza di esercizio in condizioni di emergenza', en: 'Railway operational safety in emergency conditions' }, type: { it: 'La Tecnica Professionale · Premio CIFI 2005', en: 'La Tecnica Professionale · CIFI Award 2005' } },
-  { year: '2001', title: { it: 'Distinct element analysis of underground voids in stratified rock masses', en: 'Distinct element analysis of underground voids in stratified rock masses' }, type: { it: 'Tesi di laurea · 1° Premio Nazionale SIG', en: 'Degree thesis · 1st National SIG Award' } },
-]
-
-const videos: VideoItem[] = [
-  { id: '9LUx1LBOJzA', title: { it: '25 anni di RFI – Una storia di persone, infrastrutture e responsabilità', en: '25 Years of RFI – A Story of People, Engineering and Responsibility' }, meta: { it: 'Video istituzionale RFI', en: 'RFI institutional video' }, text: { it: 'Ci sono risultati che tutti possono vedere. E poi c’è il lavoro quotidiano che li rende possibili. Nel venticinquesimo anniversario di RFI, questo video è dedicato alle persone che, con competenza, cura e responsabilità, contribuiscono ogni giorno allo sviluppo e al funzionamento della rete ferroviaria italiana.', en: 'Some achievements are visible to everyone. Behind them lies the daily commitment that makes them possible. Created to mark RFI’s 25th anniversary, this video is dedicated to the professionals whose expertise, dedication and sense of responsibility contribute every day to the development and operation of Italy’s railway network.' } },
-  { id: '8hU4DBr4O5s', title: { it: 'Ponte sullo Stretto: collegamenti ferroviari a terra ed effetti sulle preesistenze', en: 'Strait of Messina Bridge: railway connections and effects on existing structures' }, meta: { it: 'Messina · 29 ottobre 2024', en: 'Messina · 29 October 2024' }, text: { it: 'Nella giornata odierna ho avuto l’opportunità di presentare il progetto di scavo per i collegamenti ferroviari dello Stretto di Messina, condividendo i principi di progettazione geotecnica sviluppati per garantire la sicurezza degli scavi urbani e la protezione delle preesistenze. È stato un momento importante per mettere in luce il nostro approccio, che combina avanzate tecniche di monitoraggio e analisi, per minimizzare l’impatto sul territorio urbano di Messina.', en: 'Today I had the opportunity to present the excavation project for the railway connections of the Strait of Messina, sharing the geotechnical design principles developed to ensure the safety of urban excavations and the protection of existing structures. It was an important moment to highlight our approach, combining advanced monitoring and analysis techniques to minimise the impact on the urban fabric of Messina.' } },
-  { id: 'iwm4JwfobGA', title: { it: 'Esplorando il futuro dei collegamenti ferroviari al Ponte sullo Stretto', en: 'Exploring the future of railway connections to the Strait Bridge' }, meta: { it: 'Messina · 18 marzo 2024', en: 'Messina · 18 March 2024' }, text: { it: 'Anticipazione sul contributo dedicato ai collegamenti ferroviari al Ponte sullo Stretto di Messina, un tema centrale per il futuro della mobilità e dello sviluppo economico nell’area dello Stretto.', en: 'Preview of the contribution on railway connections to the Strait of Messina Bridge, a key topic for the future of mobility and economic development in the Strait area.' } },
-  { id: 'B2XEBK2oEao', title: { it: 'Agosto 2022 · Il suono di due treni su un’opera appena realizzata', en: 'August 2022 · The sound of two trains on a newly completed civil work' }, meta: { it: 'RFI · DOIT Roma', en: 'RFI · Rome Territorial Operations' }, text: { it: 'Questo è il suono di due treni che si incrociano su un’opera civile appena realizzata. Uno dei tanti lavori estivi eseguiti dalla squadra di Ingegneria Civile della DOIT Roma, in finestre operative complesse e programmate nei mesi di minore traffico.', en: 'This is the sound of two trains crossing over a newly completed civil work. One of many summer works delivered by the DOIT Rome Civil Engineering team within complex possessions planned during lower-traffic periods.' } },
+  ['01','2009','La Normativa europea per la sicurezza delle gallerie','Tecnica Professionale n. 3/09, CIFI'],
+  ['01','2006','Fire Safe Design for Rail Tunnels','European Community 5th Framework Programme'],
+  ['01','2005','Regulation Guidelines for Fire Safe Design in Rail Tunnels','European Community 5th Framework Programme'],
+  ['02','2007','Modernizzazione e competitività del Paese attraverso il rilancio del trasporto ferroviario','Notizie Speciale Ferrovie – Federmanager'],
+  ['02','2006','Fenomeni aerodinamici indotti dal transito dei treni AV','Ingegneria Ferroviaria, CIFI'],
+  ['03','2003',"L'evoluzione del concetto di sicurezza nelle gallerie ferroviarie",'Tecnica Professionale n. 9/03'],
+  ['03','2001','Analisi ad elementi distinti di cavità sotterranee in ammassi rocciosi stratificati','Gallerie e Grandi Opere in Sotterraneo n. 65, Ed. Patron'],
 ]
 
 function App() {
   const [lang, setLang] = useState<Lang>('it')
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [activeVideo, setActiveVideo] = useState<string | null>(null)
-  const t = (item: Copy) => item[lang]
-  const currentVideo = useMemo(() => videos.find((video) => video.id === activeVideo), [activeVideo])
-  const closeMenu = () => setMenuOpen(false)
+  const t = (x: Copy) => x[lang]
 
   return <div className="site-shell">
     <header className="site-header">
-      <a className="brand" href="#top" onClick={closeMenu}><span className="brand-mark">GM</span><span className="brand-name">Giorgio Micolitti</span></a>
-      <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
-        <a href="#profile" onClick={closeMenu}>{t(copy.nav.profile)}</a><a href="#experience" onClick={closeMenu}>{t(copy.nav.experience)}</a><a href="#projects" onClick={closeMenu}>{t(copy.nav.projects)}</a><a href="#publications" onClick={closeMenu}>{t(copy.nav.publications)}</a><a href="#insights" onClick={closeMenu}>{t(copy.nav.insights)}</a><a href="#contact" onClick={closeMenu}>{t(copy.nav.contact)}</a>
+      <a className="brand" href="#top"><span className="brand-mark">GM</span><span>Giorgio Micolitti</span></a>
+      <nav>
+        <a href="#profile">{lang==='it'?'Profilo':'Profile'}</a>
+        <a href="#rfi">25 anni RFI</a>
+        <a href="#expertise">{lang==='it'?'Competenze':'Expertise'}</a>
+        <a href="#areas">{lang==='it'?'Aree':'Areas'}</a>
+        <a href="#results">{lang==='it'?'Risultati':'Results'}</a>
+        <a href="#bridge">Ponte</a>
+        <a href="#diary">Project diary</a>
+        <a href="#teaching">{lang==='it'?'Docenza':'Teaching'}</a>
+        <div className="pub-nav"><a href="#publications">{lang==='it'?'Pubblicazioni':'Publications'}</a><span><a href="#pub-01">01</a> · <a href="#pub-02">02</a> · <a href="#pub-03">03</a></span></div>
       </nav>
-      <div className="header-actions"><div className="language-toggle"><button className={lang === 'it' ? 'active' : ''} onClick={() => setLang('it')}>IT</button><span>/</span><button className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</button></div><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" aria-expanded={menuOpen}><span/><span/></button></div>
+      <div className="lang"><button className={lang==='it'?'active':''} onClick={()=>setLang('it')}>IT</button><span>/</span><button className={lang==='en'?'active':''} onClick={()=>setLang('en')}>EN</button></div>
     </header>
 
     <main id="top">
-      <section className="hero section-dark"><div className="hero-grid"/><div className="hero-rail hero-rail-a"/><div className="hero-rail hero-rail-b"/><div className="container hero-inner"><div className="hero-copy"><p className="eyebrow">{t(copy.heroEyebrow)}</p><h1>Giorgio<br/>Micolitti</h1><p className="hero-statement">{t(copy.heroTitle)}</p><p className="hero-body">{t(copy.heroText)}</p><div className="hero-actions"><a className="button button-light" href="#projects">{t(copy.exploreProjects)}</a><a className="text-link text-link-light" href="#profile">{t(copy.professionalProfile)} <span>↘</span></a></div></div><div className="hero-side"><div className="hero-note"><span className="hero-note-label">CURRENT ROLE</span><strong>{lang === 'it' ? 'Dirigente RFI / Stretto di Messina' : 'RFI Executive / Stretto di Messina'}</strong><p>{lang === 'it' ? 'Responsabile Ingegneria Collegamenti Ferroviari' : 'Head of Railway Connections Engineering'}</p></div></div></div><div className="hero-footer container"><span>ROMA · ITALIA</span><span>SCROLL TO EXPLORE</span></div></section>
+      <section className="hero dark">
+        <div className="wrap hero-grid">
+          <div>
+            <p className="kicker">CIVIL ENGINEERING · RAILWAY INFRASTRUCTURE</p>
+            <h1>Civil Engineering Works,<br/>Infrastructure Constructions,<br/>Tunnels &amp; Safety</h1>
+            <p className="hero-sub">Sustainability challenges in a constantly evolving framework</p>
+            <p className="hero-name">Giorgio Micolitti</p>
+          </div>
+          <div className="hero-photo"><img src="./images/ritratto.webp" alt="Giorgio Micolitti"/></div>
+        </div>
+      </section>
 
-      <section className="intro section-light" id="profile"><div className="container split-layout"><div><p className="section-kicker">01 · {lang === 'it' ? 'PROFILO' : 'PROFILE'}</p><h2 className="display-title">{lang === 'it' ? 'Tecnica, gestione e responsabilità.' : 'Engineering, management and responsibility.'}</h2></div><div className="intro-copy"><p className="lead">{lang === 'it' ? 'Project & Construction Manager con oltre 24 anni di esperienza nelle infrastrutture civili per il settore ferroviario e delle costruzioni.' : 'Project & Construction Manager with more than 24 years of experience in civil infrastructure for the railway and construction sectors.'}</p><p>{lang === 'it' ? 'Il percorso professionale attraversa l’intero ciclo realizzativo: idea, fattibilità, progettazione, validazione, appalti, costruzione, manutenzione, budgeting e controllo. Alle competenze ingegneristiche si affiancano esperienza nella strategia industriale, valutazione degli investimenti, standardizzazione europea e gestione di team eterogenei.' : 'The professional path spans the full delivery cycle: concept, feasibility, design, validation, procurement, construction, maintenance, budgeting and control. Engineering expertise is complemented by industrial strategy, investment appraisal, European standardisation and leadership of multidisciplinary teams.'}</p><div className="credentials"><div><span>1999</span><p>{lang === 'it' ? 'Laurea in Ingegneria Civile, indirizzo Geotecnica · 110 e Lode · Sapienza' : 'Civil Engineering degree, Geotechnical track · 110 cum laude · Sapienza'}</p></div><div><span>2006—07</span><p>Master in Business Management · LUISS Business School</p></div><div><span>EASA</span><p>{lang === 'it' ? 'Pilota UAV certificato A1/A2/A3' : 'Certified UAV pilot A1/A2/A3'}</p></div></div></div></div><div className="container stats-grid">{stats.map((stat)=><div className="stat-card" key={stat.value}><strong>{stat.value}</strong><span>{t(stat.label)}</span></div>)}</div></section>
+      <section id="profile" className="light">
+        <div className="wrap section-head"><p className="kicker">01 · {lang==='it'?'PROFILO PROFESSIONALE':'PROFESSIONAL PROFILE'}</p><h2>{lang==='it'?'Profilo professionale completo':'Full professional profile'}</h2></div>
+        <div className="wrap profile-grid">
+          <div className="profile-copy">{profileParagraphs.map((p,i)=><p key={i}>{t(p)}</p>)}</div>
+          <aside className="profile-aside">
+            <h3>{lang==='it'?'Esperienza professionale':'Professional experience'}</h3>
+            {experience.map((e,i)=><article className="experience-item" key={i}><span>{e[0]}</span><h4>{e[1]}</h4><strong>{e[2]}</strong><p>{e[3]}</p></article>)}
+            <div className="mini-section">
+              <h3>{lang==='it'?'Collaudi e Certificazioni Tecniche':'Testing and Technical Certifications'}</h3>
+              <p>{lang==='it'?'Collaudatore Statico e Direttore CTA per numerosi interventi infrastrutturali RFI realizzati tra il 2014 e il 2021: travate metalliche e ponti, sottopassi, rampe, scale e marciapiedi, pensiline, opere di accessibilità, rinnovo deviatoi e riqualificazione stazioni Easy/Smart Station e Wi‑Fi Station.':'Structural Tester and CTA Director for numerous RFI infrastructure works delivered between 2014 and 2021, including steel spans and bridges, underpasses, ramps, stairs and platforms, canopies, accessibility works, turnout renewals and Easy/Smart Station and Wi‑Fi Station upgrades.'}</p>
+            </div>
+            <div className="mini-section">
+              <h3>{lang==='it'?'Lingue':'Languages'}</h3>
+              <p>Italiano — madrelingua · English — {lang==='it'?'ottimo scritto e parlato':'excellent written and spoken'} · Français — {lang==='it'?'buono':'good'}</p>
+            </div>
+          </aside>
+        </div>
+      </section>
 
-      <section className="expertise section-slate"><div className="container section-heading-row"><div><p className="section-kicker light">02 · {lang === 'it' ? 'COMPETENZE' : 'EXPERTISE'}</p><h2 className="display-title light">{lang === 'it' ? 'Un profilo costruito tra infrastrutture e sistemi complessi.' : 'A career built across infrastructure and complex systems.'}</h2></div><p className="section-aside light-muted">{lang === 'it' ? 'Competenze tecniche e manageriali sviluppate sul campo, integrate da ingegneria di sistema, attività di standardizzazione, pianificazione e valutazione economica degli investimenti.' : 'Technical and management capabilities developed in the field, complemented by systems engineering, standardisation, planning and economic appraisal of investments.'}</p></div><div className="container expertise-list">{expertise.map((item)=><article className="expertise-row" key={item.n}><span>{item.n}</span><h3>{t(item.title)}</h3><p>{t(item.text)}</p></article>)}</div></section>
+      <section id="rfi" className="editorial dark">
+        <div className="wrap editorial-grid">
+          <div><p className="kicker">02 · 25 ANNI DI RFI</p><h2>{lang==='it'?'Un percorso progressivamente esteso.':'An experience progressively broadened over time.'}</h2></div>
+          <div>
+            <p className="lead">{lang==='it'?'Dalla pianificazione infrastrutturale e dagli standard tecnici e normativi, alla strategia e valutazione degli investimenti, fino alla gestione operativa, manutenzione e realizzazione delle opere.':'From infrastructure planning and technical standards to strategy and investment appraisal, and then to operational management, maintenance and delivery of works.'}</p>
+            <p>{lang==='it'?'Dal 2002 il percorso in RFI e nel Gruppo FS ha attraversato Direzione Investimenti, Direzione Tecnica, Direzione Centrale Strategie e Pianificazione e Direzione Operativa Territoriale di Roma, fino all’attuale responsabilità in Stretto di Messina S.p.A.':'Since 2002, the career within RFI and the FS Group has spanned Investment, Technical, Central Strategy & Planning and Rome Territorial Operations directorates, leading to the current responsibility at Stretto di Messina S.p.A.'}</p>
+            <img src="./images/cantiere-team.webp" alt="" className="editorial-image"/>
+          </div>
+        </div>
+      </section>
 
-      <section className="experience section-light" id="experience"><div className="container section-heading-row"><div><p className="section-kicker">03 · {lang === 'it' ? 'ESPERIENZA' : 'EXPERIENCE'}</p><h2 className="display-title">{lang === 'it' ? 'Una progressione continua di responsabilità.' : 'A continuous progression of responsibility.'}</h2></div><p className="section-aside">{lang === 'it' ? 'Dalla geotecnica e sicurezza in galleria alla guida di strutture organizzative, fino alle opere ferroviarie connesse al Ponte sullo Stretto.' : 'From geotechnics and tunnel safety to organizational leadership and the railway works connected with the Strait of Messina Bridge.'}</p></div><div className="container timeline">{experience.map((item,index)=><article className="timeline-row" key={`${item.years}-${index}`}><div className="timeline-years">{lang === 'en' && item.yearsEn ? item.yearsEn : item.years}</div><div className="timeline-content"><h3>{t(item.role)}</h3><p className="timeline-org">{item.org}</p><p>{t(item.text)}</p></div></article>)}</div></section>
+      <section id="expertise" className="light">
+        <div className="wrap section-head"><p className="kicker">03 · {lang==='it'?'COMPETENZE':'EXPERTISE'}</p><h2>{lang==='it'?'Competenze tecniche e manageriali':'Technical and management capabilities'}</h2></div>
+        <div className="wrap two-col-list">{expertise.map((x,i)=><div key={i}><span>{String(i+1).padStart(2,'0')}</span><p>{t(x)}</p></div>)}</div>
+      </section>
 
-      <section className="projects section-ivory" id="projects"><div className="container section-heading-row"><div><p className="section-kicker">04 · {lang === 'it' ? 'PROGETTI' : 'PROJECTS'}</p><h2 className="display-title">{lang === 'it' ? 'Infrastrutture come responsabilità concreta.' : 'Infrastructure as tangible responsibility.'}</h2></div><p className="section-aside">{lang === 'it' ? 'Una selezione editoriale dei temi e delle opere più rappresentative. Le immagini del sito storico saranno progressivamente sostituite con file locali ad alta qualità.' : 'An editorial selection of representative themes and works. Legacy-site imagery will be progressively replaced with high-quality local assets.'}</p></div><div className="container project-stack">{projects.map((project,index)=><article className={index % 2 ? 'project-card reverse' : 'project-card'} key={project.code}><div className="project-image-wrap"><img src={`/api/image?url=${encodeURIComponent(project.image)}`} alt="" loading="lazy"/><span className="project-index">0{index+1}</span></div><div className="project-copy"><p className="project-code">{project.code}</p><h3>{t(project.title)}</h3><p className="project-meta">{t(project.meta)}</p><p>{t(project.text)}</p></div></article>)}</div></section>
+      <section id="areas" className="slate">
+        <div className="wrap section-head"><p className="kicker">04 · {lang==='it'?'AREE DI ATTIVITÀ':'AREAS OF ACTIVITY'}</p><h2>{lang==='it'?'Infrastrutture, sistemi, processi':'Infrastructure, systems, processes'}</h2></div>
+        <div className="wrap areas-grid">{areas.map((x,i)=><article key={i}><span>{String(i+1).padStart(2,'0')}</span><h3>{t(x)}</h3></article>)}</div>
+      </section>
 
-      <section className="international section-dark"><div className="container international-grid"><div><p className="section-kicker light">05 · INTERNATIONAL</p><h2 className="display-title light">{lang === 'it' ? 'Standard comuni per infrastrutture senza confini.' : 'Common standards for infrastructure without borders.'}</h2></div><div className="international-copy"><p className="lead light">{lang === 'it' ? 'Dal 2002 al 2011 ha rappresentato RFI in organismi e gruppi tecnici europei dedicati alla sicurezza, all’interoperabilità e alla manutenzione delle gallerie ferroviarie.' : 'From 2002 to 2011 he represented RFI in European technical bodies and working groups focused on railway tunnel safety, interoperability and maintenance.'}</p><div className="logos-text"><span>ERA / AEIF</span><span>EUROPEAN COMMISSION</span><span>UIC</span><span>FIT</span><span>BBT SE</span><span>LTF / TELT</span></div></div></div></section>
+      <section id="results" className="light">
+        <div className="wrap section-head"><p className="kicker">05 · {lang==='it'?'RISULTATI CHIAVE':'KEY RESULTS'}</p><h2>{lang==='it'?'Numeri che descrivono la scala delle responsabilità':'Numbers that describe the scale of responsibility'}</h2></div>
+        <div className="wrap results-grid">{results.map((x,i)=><article key={i}><span>{String(i+1).padStart(2,'0')}</span><p>{t(x)}</p></article>)}</div>
+      </section>
 
-      <section className="publications section-light" id="publications"><div className="container section-heading-row"><div><p className="section-kicker">06 · {lang === 'it' ? 'PUBBLICAZIONI' : 'PUBLICATIONS'}</p><h2 className="display-title">{lang === 'it' ? 'Ricerca, norme e cultura tecnica.' : 'Research, standards and engineering culture.'}</h2></div><p className="section-aside">{lang === 'it' ? 'Pubblicazioni e contributi che collegano meccanica delle rocce, sicurezza, aerodinamica e interoperabilità ferroviaria.' : 'Publications and contributions spanning rock mechanics, safety, aerodynamics and railway interoperability.'}</p></div><div className="container publication-list">{publications.map((publication)=><article className="publication-row" key={`${publication.year}-${publication.title.it}`}><span className="publication-year">{publication.year}</span><div><h3>{t(publication.title)}</h3><p>{t(publication.type)}</p></div><span className="publication-arrow">↗</span></article>)}</div><div className="container awards-strip"><div><span>2001</span><strong>{lang === 'it' ? '1° Premio Nazionale SIG' : '1st National SIG Award'}</strong></div><div><span>2005</span><strong>CIFI Best Paper Award</strong></div><div><span>2008</span><strong>CIFI Best Paper Award</strong></div><div><span>2011</span><strong>{lang === 'it' ? 'Premio CIFI' : 'CIFI Award'}</strong></div></div></section>
+      <section id="bridge" className="bridge dark">
+        <div className="wrap bridge-grid">
+          <div><p className="kicker">06 · PONTE SULLO STRETTO</p><h2>{lang==='it'?'Collegamenti ferroviari del Ponte sullo Stretto':'Railway connections to the Strait of Messina Bridge'}</h2></div>
+          <div>
+            <p className="lead">{lang==='it'?'Dal novembre 2023 Giorgio Micolitti è Responsabile Ingegneria Collegamenti Ferroviari di Stretto di Messina S.p.A. e guida la relativa Struttura Organizzativa.':'Since November 2023, Giorgio Micolitti has served as Head of Railway Connections Engineering at Stretto di Messina S.p.A., leading the related organisational unit.'}</p>
+            <p>{lang==='it'?'La sezione raccoglie il focus professionale attuale sulle opere ferroviarie connesse al sistema infrastrutturale dello Stretto, mantenendo il profilo del ruolo aderente al CV aggiornato.':'This section presents the current professional focus on railway works connected with the Strait infrastructure system, keeping the role description aligned with the updated CV.'}</p>
+          </div>
+        </div>
+      </section>
 
-      <section className="insights section-slate" id="insights"><div className="container section-heading-row"><div><p className="section-kicker light">07 · VIDEO & INSIGHTS</p><h2 className="display-title light">{lang === 'it' ? 'Le opere raccontate nel loro contesto.' : 'Engineering works, explained in context.'}</h2></div><p className="section-aside light-muted">{lang === 'it' ? 'I testi mantengono il contenuto editoriale definito nel sito storico. Il player YouTube viene caricato soltanto al click.' : 'The text preserves the editorial context defined on the legacy website. YouTube players load only on click.'}</p></div><div className="container video-grid">{videos.map((video)=><article className="video-card" key={video.id}><button className="video-thumb" onClick={()=>setActiveVideo(video.id)} aria-label={`Play ${t(video.title)}`}><img src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`} alt="" loading="lazy"/><span className="play-button">▶</span></button><div className="video-copy"><p className="video-meta">{t(video.meta)}</p><h3>{t(video.title)}</h3><p>{t(video.text)}</p></div></article>)}</div></section>
+      <section id="diary" className="light">
+        <div className="wrap section-head"><p className="kicker">07 · PROJECT DIARY</p><h2>{lang==='it'?'Opere e cantieri, senza ritagliare le immagini':'Works and construction sites, with images shown in full'}</h2></div>
+        <div className="wrap diary">{diary.map((d,i)=><article className={i%2?'diary-row reverse':'diary-row'} key={d[0]}>
+          <div className="diary-copy"><span>{String(i+1).padStart(2,'0')}</span><h3>{d[1]}</h3><p className="caption-en">{d[2]}</p></div>
+          <figure><img src={`./images/${d[0]}`} alt={d[1]} loading="lazy"/><figcaption>{d[1]}<em>{d[2]}</em></figcaption></figure>
+        </article>)}</div>
+      </section>
 
-      <section className="teaching section-ivory"><div className="container teaching-grid"><div><p className="section-kicker">08 · {lang === 'it' ? 'DOCENZA' : 'TEACHING'}</p><h2 className="display-title">Sapienza<br/>Università di Roma</h2></div><div className="teaching-copy"><p className="lead">{lang === 'it' ? 'Docenza in Tecniche di Costruzione delle Infrastrutture nell’ambito del Master in Ingegneria dei Sistemi Ferroviari.' : 'Teaching activity in Infrastructure Construction Techniques within the Master in Railway Systems Engineering.'}</p><p>{lang === 'it' ? 'La formazione diventa il punto di incontro tra esperienza di cantiere, gestione del progetto, sicurezza e cultura ferroviaria.' : 'Teaching brings together site experience, project management, safety and railway engineering culture.'}</p></div></div></section>
+      <section id="august-2022" className="editorial slate">
+        <div className="wrap editorial-grid">
+          <div><p className="kicker">08 · AGOSTO 2022</p><h2>{lang==='it'?'Il suono di due treni su un’opera appena realizzata':'The sound of two trains on a newly completed civil work'}</h2></div>
+          <div>
+            <p className="lead">{lang==='it'?'Uno dei lavori estivi eseguiti dalla squadra di Ingegneria Civile della DOIT Roma, in finestre operative complesse e programmate nei mesi di minore traffico.':'One of the summer works delivered by the DOIT Rome Civil Engineering team within complex possessions planned during lower-traffic periods.'}</p>
+            <a className="video-link" href="https://www.youtube.com/watch?v=B2XEBK2oEao" target="_blank" rel="noreferrer">{lang==='it'?'Guarda il video':'Watch the video'} ↗</a>
+          </div>
+        </div>
+      </section>
 
-      <section className="contact section-dark" id="contact"><div className="container contact-grid"><div><p className="section-kicker light">09 · {lang === 'it' ? 'CONTATTI' : 'CONTACT'}</p><h2 className="contact-title">{lang === 'it' ? 'Ingegneria, infrastrutture, visione.' : 'Engineering, infrastructure, perspective.'}</h2></div><div className="contact-links"><a href="mailto:giorgiomicol@gmail.com">giorgiomicol@gmail.com <span>↗</span></a><a href="https://www.linkedin.com/in/giorgiomicolitti/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a><a href="https://www.giorgiomicolitti.it" target="_blank" rel="noreferrer">giorgiomicolitti.it <span>↗</span></a></div></div><div className="container footer-line"><span>© {new Date().getFullYear()} Giorgio Micolitti</span><span>Civil & Geotechnical Engineering · Railway Infrastructure</span></div></section>
+      <section id="teaching" className="light">
+        <div className="wrap teaching-grid"><div><p className="kicker">09 · {lang==='it'?'DOCENZA':'TEACHING'}</p><h2>Sapienza<br/>Università di Roma</h2></div><div><p className="lead">{lang==='it'?'Docente di Tecnica dei Cantieri Infrastrutturali presso il Master Sapienza in Ingegneria delle Infrastrutture e dei Sistemi Ferroviari (IIS), edizioni 2020, 2021 e 2022.':'Lecturer in Infrastructure Construction Site Techniques within Sapienza University’s Master in Infrastructure and Railway Systems Engineering (IIS), editions 2020, 2021 and 2022.'}</p></div></div>
+      </section>
+
+      <section id="publications" className="publications ivory">
+        <div className="wrap section-head"><p className="kicker">10 · {lang==='it'?'PUBBLICAZIONI SELEZIONATE':'SELECTED PUBLICATIONS'}</p><h2>{lang==='it'?'Ricerca, sicurezza, normativa e geotecnica':'Research, safety, regulation and geotechnics'}</h2></div>
+        {['01','02','03'].map(group=><div id={`pub-${group}`} className="wrap pub-group" key={group}>
+          <div className="pub-group-title">{group}</div>
+          <div>{publications.filter(p=>p[0]===group).map((p,i)=><article className="pub-item" key={i}><span>{p[1]}</span><div><h3>{p[2]}</h3><p>{p[3]}</p></div></article>)}</div>
+        </div>)}
+        <div className="wrap covers">
+          <figure><img src="./images/cover-gallerie-magazine.webp" alt="Gallerie e Grandi Opere in Sotterraneo"/><figcaption>Gallerie e Grandi Opere in Sotterraneo</figcaption></figure>
+          <figure><img src="./images/cover-standard-sicurezza.webp" alt="Standard sicurezza gallerie"/><figcaption>Standard sicurezza gallerie</figcaption></figure>
+          <figure><img src="./images/cover-tecnica-professionale-cifi2005.webp" alt="La Tecnica Professionale"/><figcaption>La Tecnica Professionale</figcaption></figure>
+        </div>
+        <div className="wrap awards">
+          <h3>{lang==='it'?'Premi e riconoscimenti':'Awards and recognition'}</h3>
+          <div><strong>2001</strong><span>1° Premio Nazionale Società Italiana Gallerie</span></div>
+          <div><strong>2005</strong><span>1° Premio Nazionale CIFI — Collegio Ingegneri Ferroviari Italiani</span></div>
+          <div><strong>2008</strong><span>2° Premio Nazionale CIFI</span></div>
+          <div><strong>2011</strong><span>2° Premio Nazionale CIFI</span></div>
+        </div>
+      </section>
+
+      <footer className="dark"><div className="wrap footer-grid"><div><strong>Giorgio Micolitti</strong><p>Civil &amp; Geotechnical Engineering · Railway Infrastructure</p></div><div><a href="mailto:giorgiomicol@gmail.com">giorgiomicol@gmail.com</a><a href="https://www.linkedin.com/in/giorgiomicolitti/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div></footer>
     </main>
-
-    {currentVideo && <div className="video-modal" role="dialog" aria-modal="true" aria-label={t(currentVideo.title)} onClick={()=>setActiveVideo(null)}><div className="video-modal-inner" onClick={(event)=>event.stopPropagation()}><button className="video-close" onClick={()=>setActiveVideo(null)} aria-label="Close video">×</button><div className="video-frame"><iframe src={`https://www.youtube-nocookie.com/embed/${currentVideo.id}?autoplay=1&rel=0`} title={t(currentVideo.title)} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/></div><div className="video-modal-copy"><p className="video-meta">{t(currentVideo.meta)}</p><h3>{t(currentVideo.title)}</h3></div></div></div>}
   </div>
 }
-
 export default App
