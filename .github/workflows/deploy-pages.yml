@@ -20,29 +20,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup local project images
+      - name: Verify local project images
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf public/images
-          mkdir -p public/images /tmp/gm-images
-          sudo apt-get update -y >/dev/null
-          sudo apt-get install -y webp >/dev/null
-
-          curl -L --fail --retry 3 'https://lh3.googleusercontent.com/sitesv/AG8ngQVOM9n0zU1ZI63snJf9fRMLwfesRUtolW7P4qlV2ZqoyTr-xt-BSxNq2_Vim6nMEEpl_wDhUiMP0mel0Lp6VpQ2Tv9xXvW9nlBEih563JZNyYvvfz-mz-RVFs3y5heyHOVOXyOYTpIQstWbq0F5sYhLu7ubZZSA_50xkpABxkq7F3ilW0j8Qnt0hwpC_k1H6qubIatU0u-EWxhA_mEHATFDlR2UFanHEPO54zfgFVc=w1280' -o /tmp/gm-images/stretto.jpg
-          curl -L --fail --retry 3 'https://lh3.googleusercontent.com/sitesv/AG8ngQVl_mYL-lUpp4BQw_sdGDOMnefqooGamSISCwKn--bp0KOXrMNLWyMjkvJIKSVLCD0IpQwKAyMUHkHE2-VoDZUjDkB1fLDqiiOyhdcIMa-1IPTfKIcgtKFuZFJqwwUP0Kfy_R8RL1iob4csQ3Sm-oDnL5bzB-PFzEL1u_Hney0szV6Zwh5OIZIgJF0AdLQy_mYw0eVC1oSTx8M1wCmlimsgx72IBRZPzxxpCoVh=w1280' -o /tmp/gm-images/civil-works.jpg
-          curl -L --fail --retry 3 'https://lh3.googleusercontent.com/sitesv/AG8ngQWUdLZQGIoOEEpQ8GYhRA9z92KbfuUE0ywsRjnDEzG1RbOIlJgLgfP_NOE8MqqvTOIM6Ro8jumzFkI97qcfhlO5qfnnRETWzuzd4P2RbSpENnDiQcqGSPesB9w3bCT9egDwdWbsGtG2Ue_KUHVQ12IUnTH6cHdy6C9KShcTEbpRMQ_KpP8-5lRINsWBhwt9YQcr--IN-fEXMZEt=w1280' -o /tmp/gm-images/interoperability.jpg
-          curl -L --fail --retry 3 'https://lh3.googleusercontent.com/sitesv/AG8ngQVYg55s_HVtxVA4pEpCxrZbw-A21nrsycRFDLnQrpB93iv5khYzuQ-bTw5ZNZPtoL8WGVMbZhCDbEYoRmgpMdrNBUuqDCiHIeUP2rCcbs0vRtmsZaQ-TJEPCAnVtPntbM5rpGkzYBXQwKHO9K_yG4iJodUWsd3iF4t71OlB50L9Ane5U7o-M4PjY6R5SAXdX2r7KOz8aSKFRCo1w5X6JO6_af1VxoEwAe5sTGGbGAg=w1280' -o /tmp/gm-images/underground.jpg
-
-          cwebp -quiet -q 78 /tmp/gm-images/stretto.jpg -o public/images/stretto.webp
-          cwebp -quiet -q 78 /tmp/gm-images/civil-works.jpg -o public/images/civil-works.webp
-          cwebp -quiet -q 78 /tmp/gm-images/interoperability.jpg -o public/images/interoperability.webp
-          cwebp -quiet -q 78 /tmp/gm-images/underground.jpg -o public/images/underground.webp
-
-          test -s public/images/stretto.webp
-          test -s public/images/civil-works.webp
-          test -s public/images/interoperability.webp
-          test -s public/images/underground.webp
+          test -s public/images/arco-sottovia.webp
+          test -s public/images/ponte-zambra.webp
+          test -s public/images/interno-galleria.webp
+          test -s public/images/consolidamento-pendio.webp
+          ! grep -R "lh3.googleusercontent.com/sitesv/" src public index.html
 
       - name: Setup Node
         uses: actions/setup-node@v4
