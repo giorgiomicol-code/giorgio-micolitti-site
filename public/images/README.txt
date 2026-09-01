@@ -1,1 +1,0 @@
-Local image assets for the preview site. Binary imports follow in the same branch.
