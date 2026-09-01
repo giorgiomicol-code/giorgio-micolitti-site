@@ -18,8 +18,8 @@
 - [x] Professional experience split into CV-defined roles and dates
 - [x] No Google Sites image hotlinks in application code
 - [x] Project diary images use object-fit: contain and square corners
-- [x] Typography switched to Sora (headings) / DM Sans (body) / JetBrains Mono (labels, kickers, nav)
-- [x] Palette rebased on navy #1e2d3d so the first screen (incl. mobile) opens navy, never warm-dominant
+- [x] Typography: Inter (body) / Source Serif 4 (headings) — reverted from an earlier Sora/DM Sans/JetBrains Mono pass, per user request to keep the previous session's typefaces
+- [x] Palette: navy #1e2d3d + pure white only, throughout — the earlier four-tone system (navy, a mid-tone slate, cream ivory, off-white) was collapsed to exactly two tones per user request
 - [x] Home page portrait slot added (hero), wired to `./images/ritratto.webp` with a labelled placeholder fallback until the file exists
 - [x] Removed dead binary-upload artifacts (`.media/`, `image-data/`, orphaned `src/refinement.css`) left over from a previous failed image-import attempt
 - [x] **35 real WebP images integrated** — uploaded by the user via GitHub web UI to `main` (not this branch); pulled the 35 valid files across from `origin/main`, verified every one with Pillow (real dimensions + integrity, not just file size), and excluded the one file not on the user's list that was still a corrupt text placeholder (`cover-gallerie-magazine.webp`, not a real image). `main` was not modified.
@@ -35,8 +35,12 @@
 
 - [x] **Personal mobile number decision**: user confirmed — do not publish it. Contact stays email + LinkedIn only (nothing to change, it was never added).
 - [x] **Recovered the real "gallerie" n. 65 magazine cover.** It looked corrupt because a previous session had committed it as base64 *text* instead of decoding it to binary first (the `RIFF...` signature only appears after base64-decoding). Decoded it properly (129×167, genuine — not fabricated), saved to `public/images/cover-gallerie-magazine.webp`, and wired it as a `cover` thumbnail next to its matching publication ("Analisi ad elementi distinti...", Gallerie e Grandi Opere in Sotterraneo n. 65, 2001) via a new optional `PublicationItem.cover` field.
+- [x] **Two more publication covers identified and wired**, on request to show a cover next to every publication where possible:
+  - `articolo-speciale-ferrovie-2007.webp` is the actual "Speciale Ferrovie" article page (Notizie – Federmanager, aprile/maggio 2007) — matches the 2007 publication exactly by title and date. Moved it from the generic "documenti" strip to be that publication's cover directly, so it isn't shown twice.
+  - `lettera-cifi-e-copertina-tp.webp` (still in the documenti strip, as the CIFI award letter) contains, in its right half, the actual cover of *La Tecnica Professionale* n. 9, settembre 2003 — the letter itself confirms it's for the article "L'evoluzione del concetto di sicurezza nelle gallerie" published in that exact issue. Cropped just the cover portion (489×586, verified with Pillow) into a new file `cover-tecnica-professionale-2003.webp` and wired it to that publication.
+  - 3 of 7 publications now have a real cover (2001, 2003, 2007). The remaining 4 (2009 Tecnica Professionale n.3/09, 2006 Ingegneria Ferroviaria, and the two 2005/2006 EU 5th Framework Programme papers) still have nothing recoverable anywhere in the repo's history — confirmed by the same full-history search as before.
 
 ## Open questions for the user
 
-- [ ] **Fire in Tunnels / La Tecnica Professionale standalone covers, and the book "Standard di sicurezza nelle gallerie"**: searched the entire git history (all branches, all commits) for any recoverable image data for these — found none, not even at low resolution (unlike the "gallerie" n. 65 cover, which existed as mis-saved base64 text and was recoverable). These need to come from the user directly; nothing to decode or recover for them. The book also isn't in the CV's publications list at all, so it has no entry yet on the site — need to know where it should appear if added.
+- [ ] **Fire in Tunnels magazine, and the book "Standard di sicurezza nelle gallerie"**: still nothing recoverable anywhere in git history for either. These need to come from the user directly. The book also isn't in the CV's publications list at all, so it has no entry yet on the site — need to know where it should appear if added.
 - [ ] Document-to-award photo pairing (which ceremony photo belongs to which specific CIFI/SIG year) is based on filename evidence only, not confirmed against the CV — captions are deliberately generic where the exact year/event isn't certain from the file itself.
