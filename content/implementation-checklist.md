@@ -33,8 +33,10 @@
   - Added the awarding body to the SIG 2001 award (Ministero delle Infrastrutture e dei Trasporti), per the CV.
   - **Not added**: the CV's header carries a personal mobile number (338 543 7775). Not published to the site — it's PII on a page that, `noindex` aside, is still publicly reachable by URL. Flagging for an explicit decision rather than adding it unilaterally.
 
+- [x] **Personal mobile number decision**: user confirmed — do not publish it. Contact stays email + LinkedIn only (nothing to change, it was never added).
+- [x] **Recovered the real "gallerie" n. 65 magazine cover.** It looked corrupt because a previous session had committed it as base64 *text* instead of decoding it to binary first (the `RIFF...` signature only appears after base64-decoding). Decoded it properly (129×167, genuine — not fabricated), saved to `public/images/cover-gallerie-magazine.webp`, and wired it as a `cover` thumbnail next to its matching publication ("Analisi ad elementi distinti...", Gallerie e Grandi Opere in Sotterraneo n. 65, 2001) via a new optional `PublicationItem.cover` field.
+
 ## Open questions for the user
 
-- [ ] Publish the personal mobile number from the CV header on the site (footer/contact), or keep contact to email + LinkedIn only?
-- [ ] Magazine cover / book cover placeholders (Gallerie & Perforazioni, Fire in Tunnels, La Tecnica Professionale, "Standard di sicurezza nelle gallerie") — explicitly flagged by the user as not yet available in high resolution; not fabricated.
+- [ ] **Fire in Tunnels / La Tecnica Professionale standalone covers, and the book "Standard di sicurezza nelle gallerie"**: searched the entire git history (all branches, all commits) for any recoverable image data for these — found none, not even at low resolution (unlike the "gallerie" n. 65 cover, which existed as mis-saved base64 text and was recoverable). These need to come from the user directly; nothing to decode or recover for them. The book also isn't in the CV's publications list at all, so it has no entry yet on the site — need to know where it should appear if added.
 - [ ] Document-to-award photo pairing (which ceremony photo belongs to which specific CIFI/SIG year) is based on filename evidence only, not confirmed against the CV — captions are deliberately generic where the exact year/event isn't certain from the file itself.
