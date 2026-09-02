@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { PublicationLinks } from './Flipbook'
 
@@ -9,6 +9,7 @@ type DiaryItem = { image: string; title: Copy; text: Copy }
 type PublicationItem = { group: '01' | '02' | '03'; year: string; title: string; source: string; cover?: string; pdf?: string; pdfEn?: string }
 type VideoItem = { id: string; title: Copy; caption: Copy }
 type EducationItem = { years: string; title: Copy; org: Copy; detail: Copy }
+type AwardItem = { year: string; text: Copy; photos?: string[]; detail?: string[] }
 
 function VideoPlayer({ id, title }: { id: string; title: string }) {
   const [playing, setPlaying] = useState(false)
@@ -27,6 +28,36 @@ function Portrait() {
       ? <p className="placeholder">RITRATTO<br/>in attesa del file ritratto.webp</p>
       : <img src="./images/ritratto.webp" alt="Giorgio Micolitti" onError={() => setBroken(true)}/>}
   </figure>
+}
+
+function AwardPhotos({ photos, alt, lang }: { photos: string[]; alt: string; lang: Lang }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const close = () => setOpenIndex(null)
+  const prev = () => setOpenIndex(i => (i === null ? i : (i - 1 + photos.length) % photos.length))
+  const next = () => setOpenIndex(i => (i === null ? i : (i + 1) % photos.length))
+  useEffect(() => {
+    if (openIndex === null) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenIndex(null)
+      if (e.key === 'ArrowRight') setOpenIndex(i => (i === null ? i : (i + 1) % photos.length))
+      if (e.key === 'ArrowLeft') setOpenIndex(i => (i === null ? i : (i - 1 + photos.length) % photos.length))
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openIndex, photos.length])
+  return <>
+    <div className="award-thumbs">
+      {photos.map((p, i) => <button type="button" key={p} className="award-thumb" onClick={() => setOpenIndex(i)} aria-label={lang === 'it' ? 'Ingrandisci' : 'Enlarge'}>
+        <img src={`./images/${p}`} alt={alt} loading="lazy"/>
+      </button>)}
+    </div>
+    {openIndex !== null && <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={close}>
+      <button type="button" className="lightbox-close" onClick={close} aria-label={lang === 'it' ? 'Chiudi' : 'Close'}>✕</button>
+      {photos.length > 1 && <button type="button" className="lightbox-nav lightbox-prev" onClick={e => { e.stopPropagation(); prev() }} aria-label={lang === 'it' ? 'Precedente' : 'Previous'}>‹</button>}
+      <img className="lightbox-image" src={`./images/${photos[openIndex]}`} alt={alt} onClick={e => e.stopPropagation()}/>
+      {photos.length > 1 && <button type="button" className="lightbox-nav lightbox-next" onClick={e => { e.stopPropagation(); next() }} aria-label={lang === 'it' ? 'Successivo' : 'Next'}>›</button>}
+    </div>}
+  </>
 }
 
 const profile: Copy[] = [
@@ -114,13 +145,19 @@ const education: EducationItem[] = [
 ]
 
 const documents: DiaryItem[] = [
-  { image: 'diploma-societa-italiana-gallerie-2001.webp', title: { it: 'Diploma, 1° Premio Nazionale SIG · 2001', en: 'Diploma, 1st National SIG Award · 2001' }, text: { it: '', en: '' } },
-  { image: 'lettera-premio-cifi-2011.webp', title: { it: 'Lettera di assegnazione, Premio CIFI per l’articolo TP 2003 · 2005', en: 'Award letter, CIFI Prize for the 2003 TP article · 2005' }, text: { it: '', en: '' } },
   { image: 'working-group-ert-safety-tunnels.webp', title: { it: 'Working Group ERT — Safety in Railway Tunnels', en: 'Working Group ERT — Safety in Railway Tunnels' }, text: { it: '', en: '' } },
   { image: 'lettera-cifi-e-copertina-tp.webp', title: { it: 'Lettera CIFI e copertina Tecnica Professionale', en: 'CIFI letter and Tecnica Professionale cover' }, text: { it: '', en: '' } },
-  { image: 'collage-premiazione-cifi-2011.webp', title: { it: 'Cerimonia di premiazione CIFI · 2011', en: 'CIFI award ceremony · 2011' }, text: { it: '', en: '' } },
-  { image: 'premiazione-gruppo.webp', title: { it: 'Cerimonia di premiazione, foto di gruppo', en: 'Award ceremony, group photo' }, text: { it: '', en: '' } },
-  { image: 'premiazione-e-botti.webp', title: { it: 'Cerimonia di premiazione', en: 'Award ceremony' }, text: { it: '', en: '' } },
+]
+
+const awards: AwardItem[] = [
+  { year: '2001', text: { it: '1° Premio Nazionale Società Italiana Gallerie — Ministero delle Infrastrutture e dei Trasporti', en: '1st National Award, Società Italiana Gallerie — Ministry of Infrastructure and Transport' }, photos: ['diploma-societa-italiana-gallerie-2001.webp'], detail: [
+    'Premio conferito al World Tunnel Congress 2001 dal Ministro delle Infrastrutture Pietro Lunardi, per l’ampio contributo culturale alla scienza della meccanica delle rocce e dei terreni.',
+    'In concomitanza con il Convegno Internazionale ITA-AITES 2001, organizzato dalla Società Italiana Gallerie e dalla Swiss Tunnelling Society con la partecipazione dell’ITA (International Tunnelling Association) — Milano, Centro Congressi Milanofiori, 10–13 giugno 2001, circa 1000 partecipanti — la SIG e il Ministro Lunardi hanno conferito, tra 43 partecipanti, il Quarto Premio di Laurea 2001 “Costruzioni in sotterraneo”, aperto a tutte le discipline attinenti, alla tesi del Dott. Ing. Giorgio Micolitti “Analisi di stabilità di scavi con metodi ad elementi distinti”, discussa presso l’Università degli Studi di Roma “La Sapienza”, Facoltà di Ingegneria, relatore Prof. Renato Ribacchi, con la seguente motivazione:',
+    '«L’Autore si è posto l’obbiettivo di analizzare lo stato tensionale e deformativo indotto dalla realizzazione di cavità sotterranee in ammassi rocciosi fratturati, con particolare riferimento alla stabilità di quelli di tipo stratificato, sviluppando la modellazione di sistemi a comportamento marcatamente discontinuo caratterizzato da blocchi interagenti lungo le discontinuità che vedono il continuo come un caso particolare. La tesi utilizza codici di calcolo complessi e che prevedono diverse modellazioni per cui il campo di applicazione risulta ampiamente esplorato anche con alcuni confronti significativi. Ne consegue un importante contributo culturale per la Scienza della Meccanica delle rocce e dei terreni anche per l’ampia biografia citata.»',
+  ] },
+  { year: '2005', text: { it: '1° Premio Nazionale CIFI — Collegio Ingegneri Ferroviari Italiani', en: '1st National Award, CIFI — Collegio Ingegneri Ferroviari Italiani' }, photos: ['lettera-premio-cifi-2011.webp'] },
+  { year: '2008', text: { it: '2° Premio Nazionale CIFI', en: '2nd National CIFI Award' } },
+  { year: '2011', text: { it: '2° Premio Nazionale CIFI', en: '2nd National CIFI Award' }, photos: ['collage-premiazione-cifi-2011.webp', 'premiazione-gruppo.webp', 'premiazione-e-botti.webp'] },
 ]
 
 const publications: PublicationItem[] = [
@@ -145,7 +182,7 @@ function App() {
       <section id="august-2022" className="editorial slate"><div className="wrap editorial-grid"><div><p className="kicker">09 · AGOSTO 2022</p><h2>{lang === 'it' ? 'Il suono di due treni su un’opera appena realizzata' : 'The sound of two trains on a newly completed civil work'}</h2></div><div><p className="lead">{lang === 'it' ? 'Uno dei lavori estivi eseguiti dalla squadra di Ingegneria Civile della DOIT Roma, in finestre operative complesse e programmate nei mesi di minore traffico.' : 'One of the summer works delivered by the DOIT Rome Civil Engineering team within complex possessions planned during lower-traffic periods.'}</p><div className="video-embed"><VideoPlayer id="B2XEBK2oEao" title="Agosto 2022"/></div></div></div></section>
       <section id="teaching" className="light"><div className="wrap teaching-grid"><div><p className="kicker">10 · {lang === 'it' ? 'DOCENZA' : 'TEACHING'}</p><h2>Sapienza<br/>Università di Roma</h2></div><div><p className="lead">{lang === 'it' ? 'Docente di Tecnica dei Cantieri Infrastrutturali presso il Master Sapienza in Ingegneria delle Infrastrutture e dei Sistemi Ferroviari (IIS), edizioni 2020, 2021 e 2022.' : 'Lecturer in Infrastructure Construction Site Techniques within Sapienza University Master in Infrastructure and Railway Systems Engineering (IIS), editions 2020, 2021 and 2022.'}</p><div className="video-embed"><VideoPlayer id="VoLegEc26A8" title="Lezione Master IIS"/><p className="video-caption">{lang === 'it' ? 'Lezione Master IIS del 10.06.2022 — Master Università Sapienza di Roma, Ingegneria delle Infrastrutture e dei Sistemi Ferroviari, ed. 2022.' : 'Master IIS lecture, 10 June 2022 — Sapienza University of Rome Master in Infrastructure and Railway Systems Engineering, 2022 edition.'}</p></div></div></div></section>
       <section id="education" className="ivory"><div className="wrap section-head"><p className="kicker">11 · {lang === 'it' ? 'FORMAZIONE' : 'EDUCATION'}</p><h2>{lang === 'it' ? 'Percorso accademico e abilitazione professionale' : 'Academic background and professional licence'}</h2></div><div className="wrap education-list">{education.map((e,i)=><article className="experience-item" key={i}><span>{e.years}</span><h4>{t(e.title)}</h4><strong>{t(e.org)}</strong><p>{t(e.detail)}</p></article>)}</div></section>
-      <section id="publications" className="publications ivory"><div className="wrap section-head"><p className="kicker">12 · {lang === 'it' ? 'PUBBLICAZIONI SELEZIONATE' : 'SELECTED PUBLICATIONS'}</p><h2>{lang === 'it' ? 'Ricerca, sicurezza, normativa e geotecnica' : 'Research, safety, regulation and geotechnics'}</h2></div>{(['01','02','03'] as const).map(group=><div id={`pub-${group}`} className="wrap pub-group" key={group}><div className="pub-group-title">{group}</div><div>{publications.filter(p=>p.group===group).map((p,i)=><article className={p.cover ? 'pub-item has-cover' : 'pub-item'} key={`${group}-${i}`}><span>{p.year}</span>{p.cover && <img className="pub-cover" src={`./images/${p.cover}`} alt={p.title}/>}<div><h3>{p.title}</h3><p>{p.source}</p>{p.pdf && <PublicationLinks pdf={p.pdf} pdfEn={p.pdfEn} title={p.title} lang={lang}/>}</div></article>)}</div></div>)}<div className="wrap awards"><h3>{lang === 'it' ? 'Premi e riconoscimenti' : 'Awards and recognition'}</h3><div><strong>2001</strong><span>{lang === 'it' ? '1° Premio Nazionale Società Italiana Gallerie — Ministero delle Infrastrutture e dei Trasporti' : '1st National Award, Società Italiana Gallerie — Ministry of Infrastructure and Transport'}</span></div><div><strong>2005</strong><span>1° Premio Nazionale CIFI — Collegio Ingegneri Ferroviari Italiani</span></div><div><strong>2008</strong><span>2° Premio Nazionale CIFI</span></div><div><strong>2011</strong><span>2° Premio Nazionale CIFI</span></div></div><div className="wrap documents">{documents.map((d,i)=><figure key={i}><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption>{d.title.it}<em>{d.title.en}</em></figcaption></figure>)}</div></section>
+      <section id="publications" className="publications ivory"><div className="wrap section-head"><p className="kicker">12 · {lang === 'it' ? 'PUBBLICAZIONI SELEZIONATE' : 'SELECTED PUBLICATIONS'}</p><h2>{lang === 'it' ? 'Ricerca, sicurezza, normativa e geotecnica' : 'Research, safety, regulation and geotechnics'}</h2></div>{(['01','02','03'] as const).map(group=><div id={`pub-${group}`} className="wrap pub-group" key={group}><div className="pub-group-title">{group}</div><div>{publications.filter(p=>p.group===group).map((p,i)=><article className={p.cover ? 'pub-item has-cover' : 'pub-item'} key={`${group}-${i}`}><span>{p.year}</span>{p.cover && <img className="pub-cover" src={`./images/${p.cover}`} alt={p.title}/>}<div><h3>{p.title}</h3><p>{p.source}</p>{p.pdf && <PublicationLinks pdf={p.pdf} pdfEn={p.pdfEn} title={p.title} lang={lang}/>}</div></article>)}</div></div>)}<div className="wrap awards"><h3>{lang === 'it' ? 'Premi e riconoscimenti' : 'Awards and recognition'}</h3>{awards.map(a=><div className="award-row" key={a.year}><div className="award-head"><strong>{a.year}</strong><span>{t(a.text)}</span>{a.photos && <AwardPhotos photos={a.photos} alt={t(a.text)} lang={lang}/>}</div>{a.detail && lang === 'it' && <div className="award-detail">{a.detail.map((p,i)=><p key={i}>{p}</p>)}</div>}</div>)}</div><div className="wrap documents">{documents.map((d,i)=><figure key={i}><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption>{d.title.it}<em>{d.title.en}</em></figcaption></figure>)}</div></section>
       <footer className="dark"><div className="wrap footer-grid"><div><strong>Giorgio Micolitti</strong><p>Civil &amp; Geotechnical Engineering · Railway Infrastructure</p></div><div><a href="mailto:giorgiomicol@gmail.com">giorgiomicol@gmail.com</a><a href="https://www.linkedin.com/in/giorgiomicolitti/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div></footer>
     </main>
   </div>
