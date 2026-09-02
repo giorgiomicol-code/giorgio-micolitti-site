@@ -37,6 +37,8 @@ section{padding:clamp(72px,8vw,120px) 0}.kicker{font-size:11px;letter-spacing:.1
 .pub-actions{display:flex;align-items:center;gap:14px;margin-top:12px}
 .pub-flip-btn{font-family:var(--sans);font-size:12px;letter-spacing:.04em;text-transform:uppercase;background:var(--ink);color:#fff;border:0;padding:8px 16px;cursor:pointer}
 .pub-flip-btn:hover{opacity:.86}
+.pub-flip-btn-en{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.pub-flip-btn-en:hover{background:var(--ink);color:#fff;opacity:1}
 .pub-open-link{font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .pub-open-link:hover{color:var(--ink)}
 
