@@ -155,9 +155,15 @@ const awards: AwardItem[] = [
     'In concomitanza con il Convegno Internazionale ITA-AITES 2001, organizzato dalla Società Italiana Gallerie e dalla Swiss Tunnelling Society con la partecipazione dell’ITA (International Tunnelling Association) — Milano, Centro Congressi Milanofiori, 10–13 giugno 2001, circa 1000 partecipanti — la SIG e il Ministro Lunardi hanno conferito, tra 43 partecipanti, il Quarto Premio di Laurea 2001 “Costruzioni in sotterraneo”, aperto a tutte le discipline attinenti, alla tesi del Dott. Ing. Giorgio Micolitti “Analisi di stabilità di scavi con metodi ad elementi distinti”, discussa presso l’Università degli Studi di Roma “La Sapienza”, Facoltà di Ingegneria, relatore Prof. Renato Ribacchi, con la seguente motivazione:',
     '«L’Autore si è posto l’obbiettivo di analizzare lo stato tensionale e deformativo indotto dalla realizzazione di cavità sotterranee in ammassi rocciosi fratturati, con particolare riferimento alla stabilità di quelli di tipo stratificato, sviluppando la modellazione di sistemi a comportamento marcatamente discontinuo caratterizzato da blocchi interagenti lungo le discontinuità che vedono il continuo come un caso particolare. La tesi utilizza codici di calcolo complessi e che prevedono diverse modellazioni per cui il campo di applicazione risulta ampiamente esplorato anche con alcuni confronti significativi. Ne consegue un importante contributo culturale per la Scienza della Meccanica delle rocce e dei terreni anche per l’ampia biografia citata.»',
   ] },
-  { year: '2005', text: { it: '1° Premio Nazionale CIFI — Collegio Ingegneri Ferroviari Italiani', en: '1st National Award, CIFI — Collegio Ingegneri Ferroviari Italiani' }, photos: ['lettera-premio-cifi-2011.webp'] },
-  { year: '2008', text: { it: '2° Premio Nazionale CIFI', en: '2nd National CIFI Award' } },
-  { year: '2011', text: { it: '2° Premio Nazionale CIFI', en: '2nd National CIFI Award' }, photos: ['collage-premiazione-cifi-2011.webp', 'premiazione-gruppo.webp', 'premiazione-e-botti.webp'] },
+  { year: '2005', text: { it: '1° Premio Nazionale CIFI — Collegio Ingegneri Ferroviari Italiani', en: '1st National Award, CIFI — Collegio Ingegneri Ferroviari Italiani' }, photos: ['lettera-premio-cifi-2011.webp'], detail: [
+    'Conferito per la pubblicazione sulla sicurezza di esercizio in condizioni di emergenza — «La Tecnica Professionale», settembre 2003.',
+  ] },
+  { year: '2008', text: { it: '2° Premio Nazionale CIFI', en: '2nd National CIFI Award' }, detail: [
+    'Conferito per la pubblicazione su «Fenomeni aerodinamici indotti dai treni AV in galleria» — «Ingegneria Ferroviaria», ottobre 2006.',
+  ] },
+  { year: '2011', text: { it: '2° Premio Nazionale CIFI', en: '2nd National CIFI Award' }, photos: ['collage-premiazione-cifi-2011.webp', 'premiazione-gruppo.webp', 'premiazione-e-botti.webp'], detail: [
+    'Conferito per la pubblicazione su «La normativa europea per la sicurezza delle gallerie» — «La Tecnica Professionale», marzo 2009.',
+  ] },
 ]
 
 const publications: PublicationItem[] = [
