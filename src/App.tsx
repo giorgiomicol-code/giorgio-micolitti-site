@@ -78,7 +78,7 @@ const profileIntro: Copy[] = [
 
 const profileCta: Copy = { it: 'Scopri il mio percorso →', en: 'Discover my career path →' }
 
-const profileQuote: Copy = { it: '[Citazione da confermare]', en: '[Quote to be confirmed]' }
+const profileQuote: Copy = { it: 'Ci sono risultati che tutti possono vedere. E poi c’è il lavoro quotidiano che li rende possibili.', en: 'There are results that everyone can see. And then there is the daily work that makes them possible.' }
 
 const profile: Copy[] = [
   { it: 'Ingegnere Civile e Project & Construction Manager con oltre 24 anni di esperienza nella progettazione e realizzazione di infrastrutture civili di trasporto, pilota UAV certificato EASA A1/A2/A3. Ha maturato la propria esperienza nella Direzione Investimenti, nella Direzione Tecnica e nella Direzione Centrale Strategie e Pianificazione di Ferrovie dello Stato Italiane, per poi ricoprire per 11 anni ruoli di responsabilità crescente nella Direzione Operativa Territoriale di Roma di RFI. Attualmente è Responsabile della Struttura di Ingegneria dei Collegamenti Ferroviari di Stretto di Messina S.p.A.', en: 'Civil Engineer and Project & Construction Manager with more than 24 years of experience in the design and delivery of civil transport infrastructure, and an EASA A1/A2/A3 certified UAV pilot. His career has included FS Italiane Investment, Technical and Central Strategy & Planning directorates, followed by 11 years of progressively senior responsibilities within RFI Rome Territorial Operations. He is currently Head of Railway Connections Engineering at Stretto di Messina S.p.A.' },
