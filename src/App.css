@@ -24,7 +24,7 @@ section{padding:clamp(56px,7vw,96px) 0}.kicker{font-size:10.5px;letter-spacing:.
 @media(max-width:1000px){.profile-hero{grid-template-columns:1fr;grid-template-areas:"heading" "photo" "lede";row-gap:24px}.profile-hero .profile-portrait{max-width:280px;justify-self:start}}
 .profile-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(48px,7vw,110px)}.profile-copy p{font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.75;margin:0 0 16px;color:var(--ink)}.profile-aside h3{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 22px}.experience-item{border-top:1px solid var(--line);padding:18px 0}.experience-item span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.experience-item h4{font-family:var(--serif);font-size:18px;font-weight:500;margin:6px 0}.experience-item strong{font-size:12px;font-weight:500;color:var(--muted)}.experience-item p,.mini-section p{font-size:14px;line-height:1.65;color:var(--muted)}.mini-section{border-top:1px solid var(--line);padding-top:22px;margin-top:18px}
 .rfi-band{background:#e2e8f2}
-.rfi-band-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(40px,6vw,80px);align-items:center}
+.rfi-band-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:clamp(48px,7vw,110px);align-items:center}
 .rfi-band .video-embed{border-radius:4px;overflow:hidden;box-shadow:0 20px 50px -24px rgba(30,45,61,.35)}
 .rfi-band .kicker{color:var(--accent)}
 .rfi-band h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,2.6vw,34px);line-height:1.2;margin:10px 0 18px;max-width:460px}
