@@ -71,7 +71,7 @@ function AwardPhotos({ photos, alt, lang }: { photos: string[]; alt: string; lan
 
 function ExperienceAccordion({ items, lang }: { items: ExperienceItem[]; lang: Lang }) {
   const t = (x: Copy) => x[lang]
-  const [open, setOpen] = useState<Set<number>>(new Set([0]))
+  const [open, setOpen] = useState<Set<number>>(new Set())
   const toggle = (i: number) => setOpen(prev => {
     const next = new Set(prev)
     if (next.has(i)) next.delete(i)
