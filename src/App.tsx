@@ -76,7 +76,7 @@ const profileIntro: Copy[] = [
   { it: 'Un percorso che unisce ingegneria, project management e leadership, con competenza specifica in infrastrutture ferroviarie, gallerie, grandi opere, gestione del rischio e coordinamento di team e stakeholder complessi.', en: 'A path that combines engineering, project management and leadership, with specific expertise in railway infrastructure, tunnels, major works, risk management and the coordination of complex teams and stakeholders.' },
 ]
 
-const profileCta: Copy = { it: 'Scopri il mio percorso →', en: 'Discover my career path →' }
+const profileCta: Copy = { it: 'Percorso professionale →', en: 'Professional path →' }
 
 const profileQuote: Copy = { it: 'Ci sono risultati che tutti possono vedere. E poi c’è il lavoro quotidiano che li rende possibili.', en: 'There are results that everyone can see. And then there is the daily work that makes them possible.' }
 
