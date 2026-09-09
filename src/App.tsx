@@ -242,8 +242,7 @@ const diaryThemes: DiaryTheme[] = [
   { title: { it: 'Sostituzione di viadotti in muratura', en: 'Replacement of masonry viaducts' }, images: ['demolizione-ponte-muratura-collage.webp'] },
   { title: { it: 'Manutenzione di ponti ad arco in muratura', en: 'Maintenance of masonry arch bridges' }, images: ['ponte-arco-restauro.webp', 'demolizione-arco-muratura-collage.webp'] },
   { title: { it: 'Sostituzione di travate metalliche e varo di ponti', en: 'Steel-span replacement and bridge launches' }, images: ['varo-ponte-verde-aereo.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-notturno.webp', 'varo-ponte-collage.webp', 'ponte-reticolare-collage-01.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
-  { title: { it: 'Manutenzione di gallerie', en: 'Tunnel maintenance' }, images: ['galleria-interno-02.webp', 'galleria-percorrenza.webp', 'galleria-prima-dopo-collage.webp'] },
-  { title: { it: 'Impiantistica per la sicurezza in galleria', en: 'Tunnel safety systems' }, images: ['galleria-interno-01.webp'] },
+  { title: { it: 'Impiantistica per la sicurezza in galleria', en: 'Tunnel safety systems' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-01.webp'] },
 ]
 
 // Foto non ancora assegnate a un ambito confermato dall'utente: restano in coda,
