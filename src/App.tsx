@@ -6,7 +6,8 @@ type Lang = 'it' | 'en'
 type Copy = { it: string; en: string }
 type ExperienceItem = { years: string; role: Copy; org: string; text: Copy[] }
 type DiaryItem = { image: string; title: Copy; text: Copy }
-type DiaryTheme = { title: Copy; images: string[] }
+type DiarySubcategory = { title: Copy; images: string[] }
+type DiaryCategory = { title: Copy; subcategories: DiarySubcategory[] }
 type PublicationItem = { group: '01' | '02' | '03'; year: string; title: Copy; source: string; cover?: string; pdf?: string; pdfEn?: string }
 type VideoItem = { id: string; title: Copy; caption: Copy }
 type EducationItem = { years: string; title: Copy; org: Copy; detail: Copy }
@@ -237,22 +238,45 @@ const diary: DiaryItem[] = [
   { image: 'viadotto-storico-panoramica.webp', title: { it: 'Viadotto storico', en: 'Historic viaduct' }, text: { it: 'Vista panoramica di un viadotto storico in esercizio.', en: 'Panoramic view of a historic viaduct in operation.' } },
 ]
 
-const diaryThemes: DiaryTheme[] = [
-  { title: { it: 'Manutenzione di viadotti storici in muratura', en: 'Maintenance of historic masonry viaducts' }, images: ['viadotto-storico-panoramica.webp'] },
-  { title: { it: 'Sostituzione di viadotti in muratura', en: 'Replacement of masonry viaducts' }, images: ['demolizione-ponte-muratura-collage.webp'] },
-  { title: { it: 'Manutenzione di ponti ad arco in muratura', en: 'Maintenance of masonry arch bridges' }, images: ['ponte-arco-restauro.webp', 'demolizione-arco-muratura-collage.webp'] },
-  { title: { it: 'Sostituzione di travate metalliche e varo di ponti', en: 'Steel-span replacement and bridge launches' }, images: ['varo-ponte-verde-aereo.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-notturno.webp', 'varo-ponte-collage.webp', 'ponte-reticolare-collage-01.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
-  { title: { it: 'Impiantistica per la sicurezza in galleria', en: 'Tunnel safety systems' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-01.webp'] },
+// Tassonomia a 2 livelli richiesta dall'utente. Le foto sono state inserite dove
+// il collegamento con la sottocategoria è ragionevolmente chiaro dalla loro didascalia
+// reale; i posizionamenti non ovvi sono segnalati come tali nel riepilogo in chat.
+// Le sottocategorie senza foto restano vuote, pronte a riceverle in seguito.
+const diaryTaxonomy: DiaryCategory[] = [
+  { title: { it: 'Ponti e viadotti', en: 'Bridges and viaducts' }, subcategories: [
+    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['viadotto-storico-panoramica.webp', 'ponte-arco-restauro.webp'] },
+    { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: [] },
+    { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-ponte-muratura-collage.webp', 'demolizione-arco-muratura-collage.webp'] },
+    { title: { it: 'Varo e cantiere', en: 'Launch and site works' }, images: ['varo-ponte-verde-aereo.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-notturno.webp', 'varo-ponte-collage.webp', 'ponte-reticolare-collage-01.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
+    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['sottovia-aereo-scatolare.webp', 'sottovia-collage-4foto.webp', 'scavo-sottovia-cilindri.webp', 'scatolare-coprem.webp'] },
+  ] },
+  { title: { it: 'Geotecnica e rilevati', en: 'Geotechnics and embankments' }, subcategories: [
+    { title: { it: 'Rilevati ferroviari', en: 'Railway embankments' }, images: [] },
+    { title: { it: 'Scarpate e stabilizzazione', en: 'Slopes and stabilisation' }, images: ['consolidamento-scarpata.webp', 'scarpata-lanuvio.webp', 'muro-sostegno-dettaglio.webp'] },
+    { title: { it: 'Opere in terra', en: 'Earthworks' }, images: [] },
+  ] },
+  { title: { it: 'Gallerie', en: 'Tunnels' }, subcategories: [
+    { title: { it: 'Consolidamento e adeguamento', en: 'Strengthening and upgrading' }, images: ['galleria-scavo-fresa.webp', 'galleria-interno-scavo.webp'] },
+    { title: { it: 'Sicurezza e tecnologie', en: 'Safety and technology' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-01.webp'] },
+  ] },
+  { title: { it: 'Opere idrauliche', en: 'Hydraulic works' }, subcategories: [
+    { title: { it: 'Compatibilità idraulica', en: 'Hydraulic compatibility' }, images: [] },
+    { title: { it: 'Attraversamenti', en: 'Crossings' }, images: [] },
+  ] },
+  { title: { it: 'Stazioni e ambito urbano', en: 'Stations and urban areas' }, subcategories: [
+    { title: { it: 'Cantieri urbani', en: 'Urban construction sites' }, images: ['cantiere-urbano-01.webp', 'cantiere-urbano-02.webp', 'cantiere-impalcatura-verticale.webp'] },
+    { title: { it: 'Riqualificazione stazioni', en: 'Station upgrades' }, images: [] },
+  ] },
+  { title: { it: 'Nuove infrastrutture', en: 'New infrastructure' }, subcategories: [
+    { title: { it: 'Nuove linee', en: 'New lines' }, images: [] },
+    { title: { it: 'Opere civili', en: 'Civil works' }, images: [] },
+    { title: { it: 'Armamento e tecnologie', en: 'Trackwork and technology' }, images: [] },
+  ] },
 ]
 
-// Foto non ancora assegnate a un ambito confermato dall'utente: restano in coda,
+// Foto senza una sottocategoria abbastanza chiara da assegnarle: restano in coda,
 // visibili con il proprio codice (lettera+numero) in attesa di indicazioni.
-const diaryQueue: string[] = [
-  'sottovia-aereo-scatolare.webp', 'sottovia-collage-4foto.webp', 'scavo-sottovia-cilindri.webp', 'scatolare-coprem.webp',
-  'galleria-scavo-fresa.webp', 'galleria-interno-scavo.webp',
-  'consolidamento-scarpata.webp', 'scarpata-lanuvio.webp',
-  'cantiere-urbano-01.webp', 'cantiere-urbano-02.webp', 'cantiere-impalcatura-verticale.webp', 'scavo-notturno.webp', 'muro-sostegno-dettaglio.webp',
-]
+const diaryQueue: string[] = ['scavo-notturno.webp']
 
 // Codice lettera+numero per ogni foto del diario (ordine dell'array `diary`, 9 per lettera),
 // usato solo come riferimento univoco in conversazione: non rinomina i file reali.
@@ -303,6 +327,7 @@ const publications: PublicationItem[] = [
 
 function App() {
   const [lang, setLang] = useState<Lang>('it')
+  const [diaryFilter, setDiaryFilter] = useState<number | 'queue' | null>(null)
   const t = (x: Copy) => x[lang]
   return <div className="site-shell">
     <header className="site-header"><a className="brand" href="#top"><span className="brand-mark">GM</span><span>Giorgio Micolitti</span></a><nav><a href="#profile">{lang === 'it' ? 'Profilo' : 'Profile'}</a><a href="#rfi">25 anni RFI</a><a href="#bridge">Ponte</a><a href="#diary">Project diary</a><a href="#teaching">{lang === 'it' ? 'Docenza' : 'Teaching'}</a><a href="#publications">{lang === 'it' ? 'Pubblicazioni' : 'Publications'}</a></nav><div className="lang"><button className={lang === 'it' ? 'active' : ''} onClick={() => setLang('it')}>IT</button><span>/</span><button className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</button></div></header>
@@ -316,7 +341,29 @@ function App() {
       <section id="areas" className="slate"><div className="wrap section-head"><p className="kicker">04 · {lang === 'it' ? 'AMBITI INFRASTRUTTURALI' : 'INFRASTRUCTURE AREAS'}</p><h2>{lang === 'it' ? 'Principali ambiti infrastrutturali' : 'Main infrastructure areas'}</h2></div><div className="wrap areas-grid">{areas.map((x,i)=><article key={i}><span>{String(i+1).padStart(2,'0')}</span><h3>{t(x.title)}</h3><p>{t(x.detail)}</p></article>)}</div></section>
       <section id="results" className="light"><div className="wrap section-head"><p className="kicker">05 · {lang === 'it' ? 'ESPERIENZE IN NUMERI' : 'EXPERIENCE IN NUMBERS'}</p><h2>{lang === 'it' ? 'Esperienze in numeri' : 'Experience in numbers'}</h2></div><div className="wrap results-grid">{results.map((x,i)=>{const [value,label]=t(x).split(' · ');return <article key={i}><span className="stat-value">{value}</span><span className="stat-label">{label}</span></article>})}</div></section>
       <section id="bridge" className="bridge dark"><div className="wrap bridge-grid"><div><p className="kicker">06 · PONTE SULLO STRETTO</p><h2>{lang === 'it' ? 'Collegamenti ferroviari del Ponte sullo Stretto' : 'Railway connections to the Strait of Messina Bridge'}</h2></div><div><p className="lead">{lang === 'it' ? 'Dal novembre 2023 Giorgio Micolitti è Responsabile Ingegneria Collegamenti Ferroviari di Stretto di Messina S.p.A. e guida la relativa Struttura Organizzativa.' : 'Since November 2023, Giorgio Micolitti has served as Head of Railway Connections Engineering at Stretto di Messina S.p.A., leading the related organisational unit.'}</p><p>{lang === 'it' ? 'La sezione mantiene volutamente separati ruolo professionale e documentazione fotografica: vengono utilizzate soltanto immagini con attribuzione certa.' : 'The section deliberately keeps professional role and photographic documentation distinct: only imagery with certain attribution is used.'}</p></div></div><div className="wrap bridge-videos"><div className="video-embed"><VideoPlayer id="8hU4DBr4O5s" title="Ponte sullo Stretto di Messina — Collegamenti Ferroviari"/><p className="video-caption">{lang === 'it' ? 'Ponte sullo Stretto di Messina: Collegamenti Ferroviari a terra e effetti sulle preesistenze. Messina, 29 ottobre 2024.' : 'Strait of Messina Bridge: land-side railway connections and effects on existing assets. Messina, 29 October 2024.'}</p></div><div className="video-embed"><VideoPlayer id="iwm4JwfobGA" title="Esplorando il Futuro dei Collegamenti Ferroviari al Ponte sullo Stretto"/><p className="video-caption">{lang === 'it' ? 'Esplorando il Futuro dei Collegamenti Ferroviari al Ponte sullo Stretto di Messina. Messina, 18 marzo 2024.' : 'Exploring the Future of Railway Connections to the Strait of Messina Bridge. Messina, 18 March 2024.'}</p></div></div></section>
-      <section id="diary" className="light"><div className="wrap section-head"><p className="kicker">07 · PROJECT DIARY</p><h2>{lang === 'it' ? 'Opere e cantieri per ambito di intervento' : 'Works and construction sites by area of intervention'}</h2></div><div className="wrap diary">{diaryThemes.map((theme,ti)=><div className="diary-theme" key={ti}><h3>{t(theme.title)}</h3><div className="diary-grid">{theme.images.map(img=>{const d=diary.find(x=>x.image===img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption>{d.title.it}<em>{d.title.en}</em></figcaption></figure>})}</div></div>)}<div className="diary-theme diary-queue"><h3>{lang === 'it' ? 'In coda — foto da assegnare a un ambito' : 'Pending — photos awaiting an area assignment'}</h3><div className="diary-grid">{diaryQueue.map(img=>{const d=diary.find(x=>x.image===img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption>{d.title.it}<em>{d.title.en}</em></figcaption></figure>})}</div></div></div></section>
+      <section id="diary" className="light">
+        <div className="wrap section-head"><p className="kicker">07 · PROJECT DIARY</p><h2>{lang === 'it' ? 'Opere e cantieri per ambito di intervento' : 'Works and construction sites by area of intervention'}</h2></div>
+        <div className="wrap diary-filters">
+          <button type="button" className={diaryFilter === null ? 'active' : ''} onClick={() => setDiaryFilter(null)}>{lang === 'it' ? 'Tutti' : 'All'}</button>
+          {diaryTaxonomy.map((cat, ci) => <button type="button" key={ci} className={diaryFilter === ci ? 'active' : ''} onClick={() => setDiaryFilter(ci)}>{t(cat.title)}</button>)}
+          <button type="button" className={diaryFilter === 'queue' ? 'active' : ''} onClick={() => setDiaryFilter('queue')}>{lang === 'it' ? 'In coda' : 'Pending'}</button>
+        </div>
+        <div className="wrap diary">
+          {diaryTaxonomy.map((cat, ci) => (diaryFilter === null || diaryFilter === ci) && <div className="diary-category" key={ci}>
+            <h3 className="diary-category-title">{t(cat.title)}</h3>
+            {cat.subcategories.map((sub, si) => <div className="diary-subcategory" key={si}>
+              <h4>{t(sub.title)}</h4>
+              {sub.images.length > 0
+                ? <div className="diary-grid">{sub.images.map(img => { const d = diary.find(x => x.image === img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption><span className="diary-tag">{t(cat.title)} › {t(sub.title)}</span>{d.title.it}<em>{d.title.en}</em></figcaption></figure> })}</div>
+                : <p className="diary-empty">{lang === 'it' ? '— nessuna foto assegnata —' : '— no photos assigned yet —'}</p>}
+            </div>)}
+          </div>)}
+          {(diaryFilter === null || diaryFilter === 'queue') && <div className="diary-category diary-queue">
+            <h3 className="diary-category-title">{lang === 'it' ? 'In coda — foto da assegnare' : 'Pending — awaiting assignment'}</h3>
+            <div className="diary-grid">{diaryQueue.map(img => { const d = diary.find(x => x.image === img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption>{d.title.it}<em>{d.title.en}</em></figcaption></figure> })}</div>
+          </div>}
+        </div>
+      </section>
       <section id="videos" className="dark"><div className="wrap section-head"><p className="kicker">08 · {lang === 'it' ? 'VIDEO & INSIGHTS' : 'VIDEO & INSIGHTS'}</p><h2>{lang === 'it' ? 'Vari, rimozioni e opere civili in sequenza' : 'Launches, removals and civil works in sequence'}</h2></div><div className="wrap video-grid">{videos.map(v=><article className="video-card" key={v.id}><VideoPlayer id={v.id} title={t(v.title)}/><h3>{t(v.title)}</h3><p>{t(v.caption)}</p></article>)}</div></section>
       <section id="august-2022" className="editorial slate"><div className="wrap editorial-grid"><div><p className="kicker">09 · AGOSTO 2022</p><h2>{lang === 'it' ? 'Il suono di due treni su un’opera appena realizzata' : 'The sound of two trains on a newly completed civil work'}</h2></div><div><p className="lead">{lang === 'it' ? 'Uno dei lavori estivi eseguiti dalla squadra di Ingegneria Civile della DOIT Roma, in finestre operative complesse e programmate nei mesi di minore traffico.' : 'One of the summer works delivered by the DOIT Rome Civil Engineering team within complex possessions planned during lower-traffic periods.'}</p><div className="video-embed"><VideoPlayer id="B2XEBK2oEao" title="Agosto 2022"/></div></div></div></section>
       <section id="teaching" className="light"><div className="wrap teaching-grid"><div><p className="kicker">10 · {lang === 'it' ? 'DOCENZA' : 'TEACHING'}</p><h2>Sapienza<br/>Università di Roma</h2></div><div><p className="lead">{lang === 'it' ? 'Docente di Tecnica dei Cantieri Infrastrutturali presso il Master Sapienza in Ingegneria delle Infrastrutture e dei Sistemi Ferroviari (IIS), edizioni 2020, 2021 e 2022.' : 'Lecturer in Infrastructure Construction Site Techniques within Sapienza University Master in Infrastructure and Railway Systems Engineering (IIS), editions 2020, 2021 and 2022.'}</p><div className="video-embed"><VideoPlayer id="VoLegEc26A8" title="Lezione Master IIS"/><p className="video-caption">{lang === 'it' ? 'Lezione Master IIS del 10.06.2022 — Master Università Sapienza di Roma, Ingegneria delle Infrastrutture e dei Sistemi Ferroviari, ed. 2022.' : 'Master IIS lecture, 10 June 2022 — Sapienza University of Rome Master in Infrastructure and Railway Systems Engineering, 2022 edition.'}</p></div></div></div></section>
