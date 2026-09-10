@@ -274,9 +274,9 @@ const diaryTaxonomy: DiaryCategory[] = [
   { title: { it: 'Ponti e viadotti', en: 'Bridges and viaducts' }, subcategories: [
     { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['ponte-arco-restauro.webp', 'viadotto-storico-panoramica.webp'] },
     { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: ['demolizione-ponte-muratura-collage.webp', 'varo-ponte-collage.webp', 'varo-ponte-panoramica.webp'] },
-    { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-arco-muratura-collage.webp', 'sottovia-collage-4foto.webp', 'sottovia-aereo-scatolare.webp'] },
+    { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-arco-muratura-collage.webp'] },
     { title: { it: 'Varo e cantiere', en: 'Launch and site works' }, images: ['varo-ponte-verde-aereo.webp', 'varo-ponte-notturno.webp', 'ponte-reticolare-collage-01.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
-    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['scavo-sottovia-cilindri.webp', 'scatolare-coprem.webp'] },
+    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['scavo-sottovia-cilindri.webp', 'scatolare-coprem.webp', 'sottovia-collage-4foto.webp', 'sottovia-aereo-scatolare.webp'] },
   ] },
   { title: { it: 'Geotecnica e rilevati', en: 'Geotechnics and embankments' }, subcategories: [
     { title: { it: 'Rilevati ferroviari', en: 'Railway embankments' }, images: [] },
