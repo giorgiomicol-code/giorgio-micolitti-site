@@ -215,7 +215,7 @@ const diary: DiaryItem[] = [
   { image: 'varo-ponte-notturno.webp', title: { it: 'Varo in finestra notturna', en: 'Night-window launch' }, text: { it: 'Operazioni condotte in interruzioni notturne per minimizzare l’impatto sull’esercizio.', en: 'Operations carried out in night possessions to minimise impact on operations.' } },
   { image: 'ponte-reticolare-collage-01.webp', title: { it: 'Ponte a travata reticolare in acciaio', en: 'Steel truss bridge' }, text: { it: 'Montaggio e varo di un’opera a travata reticolare in acciaio.', en: 'Assembly and launch of a steel truss bridge structure.' } },
   { image: 'ponte-reticolare-collage-02-ritratto.webp', title: { it: 'In cantiere sul ponte reticolare', en: 'On site at the truss bridge' }, text: { it: 'Sopralluogo tecnico in cantiere durante le fasi realizzative dell’opera.', en: 'Technical site inspection during the works.' } },
-  { image: 'ponte-arco-restauro.webp', title: { it: 'Restauro di ponte ad arco', en: 'Arch bridge restoration' }, text: { it: 'Interventi di restauro e consolidamento su un’opera d’arte storica.', en: 'Restoration and consolidation works on a historic civil structure.' } },
+  { image: 'ponte-arco-restauro.webp', title: { it: 'Interventi di miglioramento sismico e consolidamento di ponte ad arco in muratura a più campate', en: 'Seismic upgrade and strengthening works on a multi-span masonry arch bridge' }, text: { it: 'Interventi di restauro e consolidamento su un’opera d’arte storica.', en: 'Restoration and consolidation works on a historic civil structure.' } },
   { image: 'demolizione-ponte-muratura-collage.webp', title: { it: 'Demolizione di ponte in muratura', en: 'Demolition of a masonry bridge' }, text: { it: 'Sequenza di demolizione controllata di un’opera in muratura a fine vita utile.', en: 'Controlled demolition sequence of a masonry structure at the end of its service life.' } },
   { image: 'demolizione-arco-muratura-collage.webp', title: { it: 'Demolizione di ponte ad arco in muratura', en: 'Demolition of a masonry arch bridge' }, text: { it: 'Rimozione di un’opera ad arco in muratura in vista della sua sostituzione.', en: 'Removal of a masonry arch structure ahead of its replacement.' } },
   { image: 'sottovia-aereo-scatolare.webp', title: { it: 'Sottovia scatolare, ripresa aerea', en: 'Box underpass, aerial view' }, text: { it: 'Inquadramento aereo di un nuovo sottovia scatolare in ambito ferroviario.', en: 'Aerial framing of a new box underpass beneath the railway.' } },
@@ -235,7 +235,7 @@ const diary: DiaryItem[] = [
   { image: 'cantiere-impalcatura-verticale.webp', title: { it: 'Impalcatura verticale di cantiere', en: 'Vertical construction scaffolding' }, text: { it: 'Allestimento verticale del cantiere per interventi in quota.', en: 'Vertical site setup for works at height.' } },
   { image: 'scavo-notturno.webp', title: { it: 'Scavo in finestra notturna', en: 'Night-window excavation' }, text: { it: 'Attività di scavo condotte in interruzioni notturne programmate.', en: 'Excavation works carried out during planned night possessions.' } },
   { image: 'muro-sostegno-dettaglio.webp', title: { it: 'Muro di sostegno, dettaglio costruttivo', en: 'Retaining wall, construction detail' }, text: { it: 'Dettaglio costruttivo di un muro di sostegno lungo la linea.', en: 'Construction detail of a retaining wall along the line.' } },
-  { image: 'viadotto-storico-panoramica.webp', title: { it: 'Viadotto storico', en: 'Historic viaduct' }, text: { it: 'Vista panoramica di un viadotto storico in esercizio.', en: 'Panoramic view of a historic viaduct in operation.' } },
+  { image: 'viadotto-storico-panoramica.webp', title: { it: 'Miglioramento sismico e consolidamento di viadotto storico a 12 campate', en: 'Seismic upgrade and strengthening of a 12-span historic viaduct' }, text: { it: 'Vista panoramica di un viadotto storico in esercizio.', en: 'Panoramic view of a historic viaduct in operation.' } },
 ]
 
 // Tassonomia a 2 livelli richiesta dall'utente. Le foto sono state inserite dove
@@ -244,7 +244,7 @@ const diary: DiaryItem[] = [
 // Le sottocategorie senza foto restano vuote, pronte a riceverle in seguito.
 const diaryTaxonomy: DiaryCategory[] = [
   { title: { it: 'Ponti e viadotti', en: 'Bridges and viaducts' }, subcategories: [
-    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['viadotto-storico-panoramica.webp', 'ponte-arco-restauro.webp'] },
+    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['ponte-arco-restauro.webp', 'viadotto-storico-panoramica.webp'] },
     { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: [] },
     { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-ponte-muratura-collage.webp', 'demolizione-arco-muratura-collage.webp'] },
     { title: { it: 'Varo e cantiere', en: 'Launch and site works' }, images: ['varo-ponte-verde-aereo.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-notturno.webp', 'varo-ponte-collage.webp', 'ponte-reticolare-collage-01.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
