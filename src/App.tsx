@@ -244,7 +244,7 @@ const diary: DiaryItem[] = [
   { image: 'ponte-reticolare-collage-01.webp', title: { it: 'Realizzazione di travata reticolare di grande luce', en: 'Construction of a large-span truss girder' }, text: { it: 'Montaggio e varo di un’opera a travata reticolare in acciaio.', en: 'Assembly and launch of a steel truss bridge structure.' } },
   { image: 'ponte-reticolare-collage-02-ritratto.webp', title: { it: 'Attività di cantiere propedeutiche alla riattivazione della circolazione ferroviaria dopo la posa della travata reticolare di grande luce', en: 'Site activities ahead of reopening the line to rail traffic after placement of the large-span truss girder' }, text: { it: 'Sopralluogo tecnico in cantiere durante le fasi realizzative dell’opera.', en: 'Technical site inspection during the works.' } },
   { image: 'ponte-arco-restauro.webp', title: { it: 'Interventi di miglioramento sismico e consolidamento di ponte ad arco in muratura a più campate', en: 'Seismic upgrade and strengthening works on a multi-span masonry arch bridge' }, text: { it: 'Interventi di restauro e consolidamento su un’opera d’arte storica.', en: 'Restoration and consolidation works on a historic civil structure.' } },
-  { image: 'demolizione-ponte-muratura-collage.webp', title: { it: 'Intervento di adeguamento prestazionale della linea Roma–Formia a Pomezia, per l’adeguamento alla sagoma internazionale interoperabile PC80 nell’ambito del corridoio TEN-T e il transito dei convogli High Cube, attraverso demolizione e sostituzione con nuova travata in acciaio di grande luce', en: 'Performance upgrade works on the Roma–Formia line at Pomezia, bringing it up to the interoperable international PC80 gauge within the TEN-T corridor and enabling the transit of High Cube trains, through demolition and replacement with a new long-span steel girder' }, text: { it: 'Sequenza di demolizione controllata di un’opera in muratura a fine vita utile.', en: 'Controlled demolition sequence of a masonry structure at the end of its service life.' } },
+  { image: 'pomezia.jpg', title: { it: 'Intervento di adeguamento prestazionale della linea Roma–Formia a Pomezia, per l’adeguamento alla sagoma internazionale interoperabile PC80 nell’ambito del corridoio TEN-T e il transito dei convogli High Cube, attraverso demolizione e sostituzione con nuova travata in acciaio di grande luce', en: 'Performance upgrade works on the Roma–Formia line at Pomezia, bringing it up to the interoperable international PC80 gauge within the TEN-T corridor and enabling the transit of High Cube trains, through demolition and replacement with a new long-span steel girder' }, text: { it: 'Sequenza di demolizione controllata di un’opera in muratura a fine vita utile.', en: 'Controlled demolition sequence of a masonry structure at the end of its service life.' } },
   { image: 'demolizione-arco-muratura-collage.webp', title: { it: 'Sostituzione di sottovia ad arco in muratura con nuova travata in acciaio, di luce netta adeguata a consentire una viabilità stradale a doppia corsia', en: 'Replacement of a masonry arch underpass with a new steel girder, with a clear span sufficient to accommodate two-lane road traffic' }, text: { it: 'Rimozione di un’opera ad arco in muratura in vista della sua sostituzione.', en: 'Removal of a masonry arch structure ahead of its replacement.' } },
   { image: 'sottovia-aereo-scatolare.webp', title: { it: 'Opere preliminari alla spinta, per la definitiva collocazione lungo linea', en: 'Preliminary works ahead of the pipe-jacking thrust, for the structure’s final positioning along the line' }, text: { it: 'Inquadramento aereo di un nuovo sottovia scatolare in ambito ferroviario.', en: 'Aerial framing of a new box underpass beneath the railway.' } },
   { image: 'sottovia-collage-4foto.webp', title: { it: 'Realizzazione di nuovo sottovia: fase di cantiere relativa alla costruzione dello scatolare in cemento armato e alle opere propedeutiche alla successiva spinta sotto la sede ferroviaria', en: 'Construction of a new underpass: site phase for building the reinforced-concrete box structure and the preparatory works ahead of the subsequent pipe-jacking beneath the railway line' }, text: { it: 'Fasi di scavo, varo e completamento di un sottovia scatolare in cemento armato.', en: 'Excavation, launch and completion phases of a reinforced-concrete box underpass.' } },
@@ -264,6 +264,14 @@ const diary: DiaryItem[] = [
   { image: 'scavo-notturno.webp', title: { it: 'Scavo in finestra notturna', en: 'Night-window excavation' }, text: { it: 'Attività di scavo condotte in interruzioni notturne programmate.', en: 'Excavation works carried out during planned night possessions.' } },
   { image: 'muro-sostegno-dettaglio.webp', title: { it: 'Realizzazione di tiranti autoperforanti per l’ancoraggio in profondità della paratia', en: 'Installation of self-drilling anchors for the deep anchoring of the retaining wall' }, text: { it: 'Dettaglio costruttivo di un muro di sostegno lungo la linea.', en: 'Construction detail of a retaining wall along the line.' } },
   { image: 'viadotto-storico-panoramica.webp', title: { it: 'Miglioramento sismico e consolidamento di viadotto storico a 12 campate', en: 'Seismic upgrade and strengthening of a 12-span historic viaduct' }, text: { it: 'Vista panoramica di un viadotto storico in esercizio.', en: 'Panoramic view of a historic viaduct in operation.' } },
+  { image: 'vallone-scarpa-viadotto.jpg', title: { it: '[DA CONFERMARE] Vallone, scarpa del viadotto', en: '[TO CONFIRM] Vallone, viaduct slope' }, text: { it: '[DA CONFERMARE] Vallone, scarpa del viadotto', en: '[TO CONFIRM] Vallone, viaduct slope' } },
+  { image: 'demolizione-ponte.jpg', title: { it: '[DA CONFERMARE] Demolizione ponte', en: '[TO CONFIRM] Bridge demolition' }, text: { it: '[DA CONFERMARE] Demolizione ponte', en: '[TO CONFIRM] Bridge demolition' } },
+  { image: 'galleria-orte-1.png', title: { it: '[DA CONFERMARE] Galleria Orte 1', en: '[TO CONFIRM] Orte tunnel 1' }, text: { it: '[DA CONFERMARE] Galleria Orte 1', en: '[TO CONFIRM] Orte tunnel 1' } },
+  { image: 'galleria-orte-2.png', title: { it: '[DA CONFERMARE] Galleria Orte 2', en: '[TO CONFIRM] Orte tunnel 2' }, text: { it: '[DA CONFERMARE] Galleria Orte 2', en: '[TO CONFIRM] Orte tunnel 2' } },
+  { image: 'galleria-orte-3.png', title: { it: '[DA CONFERMARE] Galleria Orte 3', en: '[TO CONFIRM] Orte tunnel 3' }, text: { it: '[DA CONFERMARE] Galleria Orte 3', en: '[TO CONFIRM] Orte tunnel 3' } },
+  { image: 'ponte-consolidamento.jpg', title: { it: '[DA CONFERMARE] Ponte, consolidamento', en: '[TO CONFIRM] Bridge, strengthening' }, text: { it: '[DA CONFERMARE] Ponte, consolidamento', en: '[TO CONFIRM] Bridge, strengthening' } },
+  { image: 'portella-1.png', title: { it: '[DA CONFERMARE] Portella 1', en: '[TO CONFIRM] Portella 1' }, text: { it: '[DA CONFERMARE] Portella 1', en: '[TO CONFIRM] Portella 1' } },
+  { image: 'abbassamento-linee-ferroviarie.jpg', title: { it: '[DA CONFERMARE] Abbassamento linee ferroviarie', en: '[TO CONFIRM] Lowering of railway lines' }, text: { it: '[DA CONFERMARE] Abbassamento linee ferroviarie', en: '[TO CONFIRM] Lowering of railway lines' } },
 ]
 
 // Tassonomia a 2 livelli richiesta dall'utente. Le foto sono state inserite dove
@@ -272,9 +280,9 @@ const diary: DiaryItem[] = [
 // Le sottocategorie senza foto restano vuote, pronte a riceverle in seguito.
 const diaryTaxonomy: DiaryCategory[] = [
   { title: { it: 'Ponti e viadotti', en: 'Bridges and viaducts' }, subcategories: [
-    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['ponte-arco-restauro.webp', 'viadotto-storico-panoramica.webp'] },
-    { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: ['demolizione-ponte-muratura-collage.webp', 'varo-ponte-collage.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-verde-aereo.webp', 'ponte-reticolare-collage-01.webp', 'varo-ponte-notturno.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
-    { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-arco-muratura-collage.webp'] },
+    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['ponte-arco-restauro.webp', 'viadotto-storico-panoramica.webp', 'vallone-scarpa-viadotto.jpg'] },
+    { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: ['pomezia.jpg', 'varo-ponte-collage.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-verde-aereo.webp', 'portella-1.png', 'ponte-reticolare-collage-01.webp', 'varo-ponte-notturno.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
+    { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-arco-muratura-collage.webp', 'demolizione-ponte.jpg', 'ponte-consolidamento.jpg'] },
     { title: { it: 'Varo e cantiere', en: 'Launch and site works' }, images: [] },
     { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['sottovia-collage-4foto.webp', 'sottovia-aereo-scatolare.webp', 'scavo-notturno.webp', 'scatolare-coprem.webp'] },
   ] },
@@ -283,7 +291,7 @@ const diaryTaxonomy: DiaryCategory[] = [
     { title: { it: 'Opere in terra', en: 'Earthworks' }, images: [] },
   ] },
   { title: { it: 'Gallerie', en: 'Tunnels' }, subcategories: [
-    { title: { it: 'Consolidamento e adeguamento', en: 'Strengthening and upgrading' }, images: ['galleria-scavo-fresa.webp'] },
+    { title: { it: 'Consolidamento e adeguamento', en: 'Strengthening and upgrading' }, images: ['galleria-scavo-fresa.webp', 'galleria-orte-1.png', 'galleria-orte-2.png', 'galleria-orte-3.png'] },
     { title: { it: 'Impiantistica e tecnologie per la sicurezza nelle gallerie ferroviarie: sistemi di messa in sovrappressione', en: 'Systems and technologies for railway tunnel safety: pressurisation systems' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-01.webp', 'galleria-interno-scavo.webp'] },
   ] },
   { title: { it: 'Opere idrauliche', en: 'Hydraulic works' }, subcategories: [
@@ -303,7 +311,7 @@ const diaryTaxonomy: DiaryCategory[] = [
 
 // Foto senza una sottocategoria abbastanza chiara da assegnarle: restano in coda,
 // visibili con il proprio codice (lettera+numero) in attesa di indicazioni.
-const diaryQueue: string[] = ['scavo-sottovia-cilindri.webp']
+const diaryQueue: string[] = ['scavo-sottovia-cilindri.webp', 'abbassamento-linee-ferroviarie.jpg']
 
 // Codice lettera+numero per ogni foto del diario (ordine dell'array `diary`, 9 per lettera),
 // usato solo come riferimento univoco in conversazione: non rinomina i file reali.
