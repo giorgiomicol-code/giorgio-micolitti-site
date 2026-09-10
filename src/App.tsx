@@ -276,7 +276,7 @@ const diaryTaxonomy: DiaryCategory[] = [
     { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: ['demolizione-ponte-muratura-collage.webp', 'varo-ponte-collage.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-verde-aereo.webp', 'ponte-reticolare-collage-01.webp', 'varo-ponte-notturno.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
     { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-arco-muratura-collage.webp'] },
     { title: { it: 'Varo e cantiere', en: 'Launch and site works' }, images: [] },
-    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['sottovia-aereo-scatolare.webp', 'scatolare-coprem.webp', 'sottovia-collage-4foto.webp', 'scavo-sottovia-cilindri.webp'] },
+    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['sottovia-aereo-scatolare.webp', 'scatolare-coprem.webp', 'sottovia-collage-4foto.webp'] },
   ] },
   { title: { it: 'Geotecnica e rilevati', en: 'Geotechnics and embankments' }, subcategories: [
     { title: { it: 'Rilevati ferroviari, scarpate e stabilizzazione', en: 'Railway embankments, slopes and stabilisation' }, images: ['consolidamento-scarpata.webp', 'scarpata-lanuvio.webp', 'muro-sostegno-dettaglio.webp'] },
@@ -303,7 +303,7 @@ const diaryTaxonomy: DiaryCategory[] = [
 
 // Foto senza una sottocategoria abbastanza chiara da assegnarle: restano in coda,
 // visibili con il proprio codice (lettera+numero) in attesa di indicazioni.
-const diaryQueue: string[] = ['scavo-notturno.webp']
+const diaryQueue: string[] = ['scavo-notturno.webp', 'scavo-sottovia-cilindri.webp']
 
 // Codice lettera+numero per ogni foto del diario (ordine dell'array `diary`, 9 per lettera),
 // usato solo come riferimento univoco in conversazione: non rinomina i file reali.
