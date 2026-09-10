@@ -256,7 +256,7 @@ const diary: DiaryItem[] = [
   { image: 'galleria-interno-scavo.webp', title: { it: 'Fronte di scavo in galleria', en: 'Tunnel excavation face' }, text: { it: 'Fase di avanzamento al fronte durante lo scavo in sotterraneo.', en: 'Face-advance phase during underground excavation.' } },
   { image: 'galleria-percorrenza.webp', title: { it: 'Percorrenza in galleria', en: 'Tunnel walkthrough' }, text: { it: 'Ispezione tecnica lungo lo sviluppo della galleria.', en: 'Technical inspection along the length of the tunnel.' } },
   { image: 'galleria-prima-dopo-collage.webp', title: { it: 'Galleria: prima e dopo l’intervento', en: 'Tunnel: before and after the works' }, text: { it: 'Confronto tra lo stato ante operam e post operam di un intervento in galleria.', en: 'Comparison between the pre- and post-intervention state of a tunnel upgrade.' } },
-  { image: 'consolidamento-scarpata.webp', title: { it: 'Consolidamento di scarpata', en: 'Slope consolidation' }, text: { it: 'Interventi geotecnici di consolidamento e mitigazione del dissesto idrogeologico.', en: 'Geotechnical consolidation works and hydrogeological risk mitigation.' } },
+  { image: 'consolidamento-scarpata.webp', title: { it: 'Stabilizzazione di un rilevato ferroviario di grande altezza mediante doppia paratia tirantata di micropali', en: 'Stabilisation of a high railway embankment using a double tie-back micropile wall' }, text: { it: 'Interventi geotecnici di consolidamento e mitigazione del dissesto idrogeologico.', en: 'Geotechnical consolidation works and hydrogeological risk mitigation.' } },
   { image: 'scarpata-lanuvio.webp', title: { it: 'Scarpata di Lanuvio', en: 'Lanuvio slope' }, text: { it: 'Intervento di stabilizzazione su un versante in prossimità della linea ferroviaria.', en: 'Stabilisation works on a slope adjacent to the railway line.' } },
   { image: 'cantiere-urbano-01.webp', title: { it: 'Cantiere in ambito urbano', en: 'Urban construction site' }, text: { it: 'Gestione delle interferenze e della sicurezza in un cantiere ferroviario urbano.', en: 'Managing interfaces and safety on an urban railway construction site.' } },
   { image: 'cantiere-urbano-02.webp', title: { it: 'Opere civili in ambito urbano', en: 'Civil works in an urban setting' }, text: { it: 'Realizzazione di opere civili in un contesto urbano denso.', en: 'Delivery of civil works within a dense urban context.' } },
@@ -279,8 +279,7 @@ const diaryTaxonomy: DiaryCategory[] = [
     { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['sottovia-aereo-scatolare.webp', 'scatolare-coprem.webp', 'sottovia-collage-4foto.webp', 'scavo-sottovia-cilindri.webp'] },
   ] },
   { title: { it: 'Geotecnica e rilevati', en: 'Geotechnics and embankments' }, subcategories: [
-    { title: { it: 'Rilevati ferroviari', en: 'Railway embankments' }, images: [] },
-    { title: { it: 'Scarpate e stabilizzazione', en: 'Slopes and stabilisation' }, images: ['consolidamento-scarpata.webp', 'scarpata-lanuvio.webp', 'muro-sostegno-dettaglio.webp'] },
+    { title: { it: 'Rilevati ferroviari, scarpate e stabilizzazione', en: 'Railway embankments, slopes and stabilisation' }, images: ['consolidamento-scarpata.webp', 'scarpata-lanuvio.webp', 'muro-sostegno-dettaglio.webp'] },
     { title: { it: 'Opere in terra', en: 'Earthworks' }, images: [] },
   ] },
   { title: { it: 'Gallerie', en: 'Tunnels' }, subcategories: [
