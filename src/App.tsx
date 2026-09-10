@@ -72,6 +72,34 @@ function AwardPhotos({ photos, alt, lang }: { photos: string[]; alt: string; lan
   </>
 }
 
+function DiaryPhotoGrid({ images, lang, tag }: { images: string[]; lang: Lang; tag?: string }) {
+  const t = (x: Copy) => x[lang]
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const close = () => setOpenIndex(null)
+  const prev = () => setOpenIndex(i => (i === null ? i : (i - 1 + images.length) % images.length))
+  const next = () => setOpenIndex(i => (i === null ? i : (i + 1) % images.length))
+  useEffect(() => {
+    if (openIndex === null) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenIndex(null)
+      if (e.key === 'ArrowRight') setOpenIndex(i => (i === null ? i : (i + 1) % images.length))
+      if (e.key === 'ArrowLeft') setOpenIndex(i => (i === null ? i : (i - 1 + images.length) % images.length))
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openIndex, images.length])
+  const current = openIndex !== null ? diary.find(x => x.image === images[openIndex])! : null
+  return <>
+    <div className="diary-grid">{images.map((img, i) => { const d = diary.find(x => x.image === img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><button type="button" className="diary-zoom" onClick={() => setOpenIndex(i)} aria-label={lang === 'it' ? 'Ingrandisci' : 'Enlarge'}><img src={`./images/${d.image}`} alt={t(d.title)}/></button><figcaption>{tag && <span className="diary-tag">{tag}</span>}{t(d.title)}</figcaption></figure> })}</div>
+    {current && <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={close}>
+      <button type="button" className="lightbox-close" onClick={close} aria-label={lang === 'it' ? 'Chiudi' : 'Close'}>✕</button>
+      {images.length > 1 && <button type="button" className="lightbox-nav lightbox-prev" onClick={e => { e.stopPropagation(); prev() }} aria-label={lang === 'it' ? 'Precedente' : 'Previous'}>‹</button>}
+      <img className="lightbox-image" src={`./images/${current.image}`} alt={t(current.title)} onClick={e => e.stopPropagation()}/>
+      {images.length > 1 && <button type="button" className="lightbox-nav lightbox-next" onClick={e => { e.stopPropagation(); next() }} aria-label={lang === 'it' ? 'Successivo' : 'Next'}>›</button>}
+    </div>}
+  </>
+}
+
 function ExperienceAccordion({ items, lang }: { items: ExperienceItem[]; lang: Lang }) {
   const t = (x: Copy) => x[lang]
   const [open, setOpen] = useState<Set<number>>(new Set())
@@ -366,13 +394,13 @@ function App() {
             {cat.subcategories.map((sub, si) => <div className="diary-subcategory" key={si}>
               <h4>{t(sub.title)}</h4>
               {sub.images.length > 0
-                ? <div className="diary-grid">{sub.images.map(img => { const d = diary.find(x => x.image === img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption><span className="diary-tag">{t(cat.title)} › {t(sub.title)}</span>{t(d.title)}</figcaption></figure> })}</div>
+                ? <DiaryPhotoGrid images={sub.images} lang={lang} tag={`${t(cat.title)} › ${t(sub.title)}`}/>
                 : <p className="diary-empty">{lang === 'it' ? '— nessuna foto assegnata —' : '— no photos assigned yet —'}</p>}
             </div>)}
           </div>)}
           {(diaryFilter === null || diaryFilter === 'queue') && <div className="diary-category diary-queue">
             <h3 className="diary-category-title">{lang === 'it' ? 'In coda — foto da assegnare' : 'Pending — awaiting assignment'}</h3>
-            <div className="diary-grid">{diaryQueue.map(img => { const d = diary.find(x => x.image === img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><img src={`./images/${d.image}`} alt={t(d.title)}/><figcaption>{t(d.title)}</figcaption></figure> })}</div>
+            <DiaryPhotoGrid images={diaryQueue} lang={lang}/>
           </div>}
         </div>
       </section>
