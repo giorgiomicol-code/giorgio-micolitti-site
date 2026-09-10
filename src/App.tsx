@@ -283,8 +283,8 @@ const diaryTaxonomy: DiaryCategory[] = [
     { title: { it: 'Opere in terra', en: 'Earthworks' }, images: [] },
   ] },
   { title: { it: 'Gallerie', en: 'Tunnels' }, subcategories: [
-    { title: { it: 'Consolidamento e adeguamento', en: 'Strengthening and upgrading' }, images: ['galleria-scavo-fresa.webp', 'galleria-interno-scavo.webp'] },
-    { title: { it: 'Sicurezza e tecnologie', en: 'Safety and technology' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-01.webp'] },
+    { title: { it: 'Consolidamento e adeguamento', en: 'Strengthening and upgrading' }, images: ['galleria-scavo-fresa.webp'] },
+    { title: { it: 'Impiantistica e tecnologie per la sicurezza nelle gallerie ferroviarie: sistemi di messa in sovrappressione', en: 'Systems and technologies for railway tunnel safety: pressurisation systems' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-scavo.webp', 'galleria-interno-01.webp'] },
   ] },
   { title: { it: 'Opere idrauliche', en: 'Hydraulic works' }, subcategories: [
     { title: { it: 'Compatibilità idraulica', en: 'Hydraulic compatibility' }, images: [] },
