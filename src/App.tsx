@@ -72,9 +72,26 @@ function AwardPhotos({ photos, alt, lang }: { photos: string[]; alt: string; lan
   </>
 }
 
+function useDiaryColumns() {
+  const getCols = () => window.innerWidth <= 640 ? 1 : window.innerWidth <= 1000 ? 2 : 3
+  const [cols, setCols] = useState(() => typeof window === 'undefined' ? 3 : getCols())
+  useEffect(() => {
+    const mqTablet = window.matchMedia('(max-width: 1000px)')
+    const mqMobile = window.matchMedia('(max-width: 640px)')
+    const update = () => setCols(getCols())
+    update()
+    mqTablet.addEventListener('change', update)
+    mqMobile.addEventListener('change', update)
+    return () => { mqTablet.removeEventListener('change', update); mqMobile.removeEventListener('change', update) }
+  }, [])
+  return cols
+}
+
 function DiaryPhotoGrid({ images, lang, tag }: { images: string[]; lang: Lang; tag?: string }) {
   const t = (x: Copy) => x[lang]
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [expanded, setExpanded] = useState(false)
+  const columns = useDiaryColumns()
   const close = () => setOpenIndex(null)
   const prev = () => setOpenIndex(i => (i === null ? i : (i - 1 + images.length) % images.length))
   const next = () => setOpenIndex(i => (i === null ? i : (i + 1) % images.length))
@@ -89,8 +106,23 @@ function DiaryPhotoGrid({ images, lang, tag }: { images: string[]; lang: Lang; t
     return () => window.removeEventListener('keydown', onKey)
   }, [openIndex, images.length])
   const current = openIndex !== null ? diary.find(x => x.image === images[openIndex])! : null
+  const renderFigure = (img: string, i: number) => {
+    const d = diary.find(x => x.image === img)!
+    return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><button type="button" className="diary-zoom" onClick={() => setOpenIndex(i)} aria-label={lang === 'it' ? 'Ingrandisci' : 'Enlarge'}><img src={`./images/${d.image}`} alt={t(d.title)}/></button><figcaption>{tag && <span className="diary-tag">{tag}</span>}{t(d.title)}</figcaption></figure>
+  }
+  const visibleCount = Math.min(images.length, columns)
+  const firstRow = images.slice(0, visibleCount)
+  const rest = images.slice(visibleCount)
   return <>
-    <div className="diary-grid">{images.map((img, i) => { const d = diary.find(x => x.image === img)!; return <figure key={img}><span className="diary-code">{diaryCodes[img]}</span><button type="button" className="diary-zoom" onClick={() => setOpenIndex(i)} aria-label={lang === 'it' ? 'Ingrandisci' : 'Enlarge'}><img src={`./images/${d.image}`} alt={t(d.title)}/></button><figcaption>{tag && <span className="diary-tag">{tag}</span>}{t(d.title)}</figcaption></figure> })}</div>
+    <div className="diary-grid">{firstRow.map((img, i) => renderFigure(img, i))}</div>
+    {rest.length > 0 && <>
+      <button type="button" className="diary-more" onClick={() => setExpanded(x => !x)} aria-expanded={expanded}>
+        {expanded ? (lang === 'it' ? 'Mostra meno ↑' : 'Show less ↑') : (lang === 'it' ? `Mostra altri interventi (${rest.length}) ↓` : `Show ${rest.length} more ↓`)}
+      </button>
+      <div className={`diary-more-wrap${expanded ? ' diary-more-open' : ''}`}>
+        <div className="diary-more-inner"><div className="diary-grid">{rest.map((img, i) => renderFigure(img, i + visibleCount))}</div></div>
+      </div>
+    </>}
     {current && <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={close}>
       <button type="button" className="lightbox-close" onClick={close} aria-label={lang === 'it' ? 'Chiudi' : 'Close'}>✕</button>
       {images.length > 1 && <button type="button" className="lightbox-nav lightbox-prev" onClick={e => { e.stopPropagation(); prev() }} aria-label={lang === 'it' ? 'Precedente' : 'Previous'}>‹</button>}
