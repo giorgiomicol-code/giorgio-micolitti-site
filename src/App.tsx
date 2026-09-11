@@ -411,6 +411,7 @@ function App() {
   const [lang, setLang] = useState<Lang>('it')
   const [navOpen, setNavOpen] = useState(false)
   const [diaryFilter, setDiaryFilter] = useState<number | 'queue' | null>(null)
+  const [diarySub, setDiarySub] = useState<Record<number, number>>({})
   const t = (x: Copy) => x[lang]
   return <div className="site-shell">
     <header className="site-header"><a className="brand" href="#top"><span className="brand-mark">GM</span><span>Giorgio Micolitti</span></a><button type="button" className={navOpen ? 'nav-toggle nav-toggle-open' : 'nav-toggle'} aria-expanded={navOpen} aria-label={lang === 'it' ? 'Apri il menu' : 'Open menu'} onClick={() => setNavOpen(o => !o)}><span/><span/><span/></button><nav className={navOpen ? 'nav-open' : ''} onClick={() => setNavOpen(false)}><a href="#profile">{lang === 'it' ? 'Profilo' : 'Profile'}</a><a href="#rfi">{lang === 'it' ? '25 anni RFI' : '25 years RFI'}</a><a href="#bridge">{lang === 'it' ? 'Ponte' : 'Bridge'}</a><a href="#diary">Project diary</a><a href="#teaching">{lang === 'it' ? 'Docenze' : 'Teaching'}</a><a href="#publications">{lang === 'it' ? 'Pubblicazioni' : 'Publications'}</a></nav><div className="lang"><button className={lang === 'it' ? 'active' : ''} onClick={() => setLang('it')}>IT</button><span>/</span><button className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</button></div></header>
@@ -433,8 +434,10 @@ function App() {
         <div className="wrap diary">
           {diaryTaxonomy.map((cat, ci) => (diaryFilter === null || diaryFilter === ci) && <div className="diary-category" key={ci}>
             <h3 className="diary-category-title">{t(cat.title)}</h3>
-            {cat.subcategories.map((sub, si) => <div className="diary-subcategory" key={si}>
-              <h4>{t(sub.title)}</h4>
+            {cat.subcategories.length > 1 && <div className="diary-subfilters">
+              {cat.subcategories.map((sub, si) => <button type="button" key={si} className={(diarySub[ci] ?? 0) === si ? 'active' : ''} onClick={() => setDiarySub(prev => ({ ...prev, [ci]: si }))}>{t(sub.title)}</button>)}
+            </div>}
+            {cat.subcategories.map((sub, si) => si === (diarySub[ci] ?? 0) && <div className="diary-subcategory" key={si}>
               {sub.images.length > 0
                 ? <DiaryPhotoGrid images={sub.images} lang={lang} tag={`${t(cat.title)} › ${t(sub.title)}`}/>
                 : <p className="diary-empty">{lang === 'it' ? '— nessuna foto assegnata —' : '— no photos assigned yet —'}</p>}
