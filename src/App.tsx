@@ -138,16 +138,11 @@ function isLastGridRow(total: number, i: number, cols = 3) {
 
 function ExperienceAccordion({ items, lang }: { items: ExperienceItem[]; lang: Lang }) {
   const t = (x: Copy) => x[lang]
-  const [open, setOpen] = useState<Set<number>>(new Set())
-  const toggle = (i: number) => setOpen(prev => {
-    const next = new Set(prev)
-    if (next.has(i)) next.delete(i)
-    else next.add(i)
-    return next
-  })
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const toggle = (i: number) => setOpenIndex(prev => (prev === i ? null : i))
   return <div className="exp-accordion">
     {items.map((e, i) => {
-      const isOpen = open.has(i)
+      const isOpen = openIndex === i
       const panelId = `exp-panel-${i}`
       return <div className="exp-item" key={i}>
         <span className={`exp-dot${isOpen ? ' exp-dot-open' : ''}`} aria-hidden="true"/>
