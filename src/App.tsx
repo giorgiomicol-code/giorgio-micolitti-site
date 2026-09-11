@@ -372,8 +372,8 @@ const videoCodes: Record<string, string> = Object.fromEntries(videos.map((v, i) 
 
 const education: EducationItem[] = [
   { years: '2006 — 2007', title: { it: 'Executive Master in General Management', en: 'Executive Master in General Management' }, org: { it: 'LUISS Business School', en: 'LUISS Business School' }, detail: { it: 'Pianificazione Strategica e Organizzazione Aziendale, Amministrazione e Controllo di Gestione, Finanza, Strategie e Politiche di Marketing, Gestione delle Operations, Gestione HR.', en: 'Strategic planning and organisational design, management accounting and control, finance, marketing strategy and policy, operations management, HR management.' } },
-  { years: '1999 — 2000', title: { it: 'Laurea in Ingegneria Civile (indirizzo Geotecnica) — 110/110 e Lode', en: 'Degree in Civil Engineering (Geotechnical) — 110/110 cum laude' }, org: { it: 'Università “La Sapienza” di Roma', en: 'Sapienza University of Rome' }, detail: { it: 'Premio di Laurea del Ministro delle Infrastrutture P. Lunardi.', en: 'Awarded the Degree Prize by the Minister of Infrastructure P. Lunardi.' } },
   { years: '2001', title: { it: 'Abilitazione alla professione di Ingegnere', en: 'Professional Engineering licence' }, org: { it: 'Ordine degli Ingegneri di Roma', en: 'Rome Order of Engineers' }, detail: { it: 'Iscritto all’Albo degli Ingegneri di Roma, n. 31957.', en: 'Registered with the Rome Order of Engineers, no. 31957.' } },
+  { years: '1999 — 2000', title: { it: 'Laurea in Ingegneria Civile (indirizzo Geotecnica) — 110/110 e Lode', en: 'Degree in Civil Engineering (Geotechnical) — 110/110 cum laude' }, org: { it: 'Università “La Sapienza” di Roma', en: 'Sapienza University of Rome' }, detail: { it: 'Premio di Laurea del Ministro delle Infrastrutture P. Lunardi.', en: 'Awarded the Degree Prize by the Minister of Infrastructure P. Lunardi.' } },
 ]
 
 const documents: DiaryItem[] = []
