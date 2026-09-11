@@ -410,7 +410,7 @@ function localizeSource(source: string, lang: Lang) {
 function App() {
   const [lang, setLang] = useState<Lang>('it')
   const [navOpen, setNavOpen] = useState(false)
-  const [diaryFilter, setDiaryFilter] = useState<number | 'queue' | null>(null)
+  const [diaryFilter, setDiaryFilter] = useState<number | 'queue'>(0)
   const [diarySub, setDiarySub] = useState<Record<number, number>>({})
   const t = (x: Copy) => x[lang]
   return <div className="site-shell">
@@ -427,12 +427,11 @@ function App() {
       <section id="diary" className="light">
         <div className="wrap section-head"><p className="kicker">07 · PROJECT DIARY</p><h2>{lang === 'it' ? 'Opere e cantieri: selezione fotografica per tipologia di intervento' : 'Works and construction sites: photographic selection by type of intervention'}</h2></div>
         <div className="wrap diary-filters">
-          <button type="button" className={diaryFilter === null ? 'active' : ''} onClick={() => setDiaryFilter(null)}>{lang === 'it' ? 'Tutti' : 'All'}</button>
           {diaryTaxonomy.map((cat, ci) => <button type="button" key={ci} className={diaryFilter === ci ? 'active' : ''} onClick={() => setDiaryFilter(ci)}>{t(cat.title)}</button>)}
           {diaryQueue.length > 0 && <button type="button" className={diaryFilter === 'queue' ? 'active' : ''} onClick={() => setDiaryFilter('queue')}>{lang === 'it' ? 'In coda' : 'Pending'}</button>}
         </div>
         <div className="wrap diary">
-          {diaryTaxonomy.map((cat, ci) => (diaryFilter === null || diaryFilter === ci) && <div className="diary-category" key={ci}>
+          {diaryTaxonomy.map((cat, ci) => diaryFilter === ci && <div className="diary-category" key={ci}>
             <h3 className="diary-category-title">{t(cat.title)}</h3>
             {cat.subcategories.length > 1 && <div className="diary-subfilters">
               {cat.subcategories.map((sub, si) => <button type="button" key={si} className={(diarySub[ci] ?? 0) === si ? 'active' : ''} onClick={() => setDiarySub(prev => ({ ...prev, [ci]: si }))}>{t(sub.title)}</button>)}
@@ -443,7 +442,7 @@ function App() {
                 : <p className="diary-empty">{lang === 'it' ? '— nessuna foto assegnata —' : '— no photos assigned yet —'}</p>}
             </div>)}
           </div>)}
-          {diaryQueue.length > 0 && (diaryFilter === null || diaryFilter === 'queue') && <div className="diary-category diary-queue">
+          {diaryQueue.length > 0 && diaryFilter === 'queue' && <div className="diary-category diary-queue">
             <h3 className="diary-category-title">{lang === 'it' ? 'In coda — foto da assegnare' : 'Pending — awaiting assignment'}</h3>
             <DiaryPhotoGrid images={diaryQueue} lang={lang}/>
           </div>}
