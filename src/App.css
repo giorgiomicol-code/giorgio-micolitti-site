@@ -42,7 +42,8 @@ section{padding:clamp(45px,6vw,77px) 0}.kicker{font-size:9.5px;letter-spacing:.1
 .exp-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
 .exp-panel-open{grid-template-rows:1fr}
 .exp-panel-inner{overflow:hidden}
-.exp-panel-inner p{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 7.2px;padding-top:1.6px}
+.exp-panel-inner p{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 7.2px;padding-top:1.6px;transition:font-size .25s ease}
+.exp-panel-open .exp-panel-inner p{font-size:13.5px}
 .exp-panel-inner p:last-child{margin-bottom:10.8px}
 @media(max-width:640px){.exp-trigger{padding-top:10px;padding-bottom:10px}}
 .rfi-band{background:#e2e8f2}
