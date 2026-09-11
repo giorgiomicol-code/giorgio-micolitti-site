@@ -48,7 +48,7 @@ section{padding:clamp(45px,6vw,77px) 0}.kicker{font-size:9.5px;letter-spacing:.1
 .rfi-band-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:clamp(23px,2.5vw,38px);align-items:center}
 .rfi-band .video-embed{border-radius:3.5px;overflow:hidden;box-shadow:0 17px 40px -20px rgba(30,45,61,.35)}
 .rfi-band .kicker{color:var(--accent)}
-.rfi-band h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,2.2vw,28px);line-height:1.2;margin:9px 0 15.5px}
+.rfi-band h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,2.2vw,31px);line-height:1.2;margin:9px 0 15.5px}
 .rfi-band p{font-size:13.5px;line-height:1.75;color:var(--ink);margin:0}
 @media(max-width:1000px){.rfi-band-grid{grid-template-columns:1fr}}
 .editorial-grid,.bridge-grid,.teaching-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(37px,6.8vw,96px)}
