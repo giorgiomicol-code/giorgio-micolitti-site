@@ -37,7 +37,8 @@ section{padding:clamp(45px,6vw,77px) 0}.kicker{font-size:9.5px;letter-spacing:.1
 .exp-chevron{flex:none;width:16.8px;height:16.8px;border:1.5px solid var(--line);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.2px;color:var(--ink);transition:transform .25s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
 .exp-trigger:hover .exp-chevron{border-color:var(--accent);color:var(--accent)}
 .exp-chevron-open{transform:rotate(180deg);background:var(--accent);border-color:var(--accent);color:#fff}
-.exp-trigger h4{font-family:var(--serif);font-size:12.4px;font-weight:500;margin:4.4px 0 0}
+.exp-trigger h4{font-family:var(--serif);font-size:12.4px;font-weight:500;margin:4.4px 0 0;transition:font-size .25s ease}
+.exp-trigger[aria-expanded="true"] h4{font-size:18px}
 .exp-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
 .exp-panel-open{grid-template-rows:1fr}
 .exp-panel-inner{overflow:hidden}
