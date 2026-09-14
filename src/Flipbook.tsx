@@ -16,7 +16,6 @@ export const PublicationLinks = forwardRef<PublicationLinksHandle, { pdf: string
     const urlEn = useMemo(() => (pdfEn ? `./publications/${pdfEn}` : ''), [pdfEn])
     useImperativeHandle(ref, () => ({ openMain: () => setOpen(true) }))
     return <div className="pub-actions">
-      <a className="pub-open-link" href={url} target="_blank" rel="noreferrer">{lang === 'it' ? 'Apri PDF' : 'Open PDF'}</a>
       {pdfEn && <button type="button" className="pub-flip-btn pub-flip-btn-en" onClick={() => setOpenEn(true)}>{lang === 'it' ? 'Versione inglese ↗' : 'English version ↗'}</button>}
       {open && <Suspense fallback={modalFallback}>
         <FlipbookModal url={url} title={title} lang={lang} onClose={() => setOpen(false)}/>
