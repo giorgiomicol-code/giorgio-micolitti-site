@@ -33,17 +33,18 @@ section{padding:clamp(45px,6vw,77px) 0}.kicker{font-size:9.5px;letter-spacing:.1
 .exp-trigger{all:unset;display:block;width:100%;box-sizing:border-box;padding:10.8px 5.6px 10.8px 0;cursor:pointer}
 .exp-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2.8px;border-radius:2px}
 .exp-meta{display:flex;align-items:center;justify-content:space-between;gap:8.4px}
-.exp-years{font-size:7.6px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.exp-chevron{flex:none;width:16.8px;height:16.8px;border:1.5px solid var(--line);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9.2px;color:var(--ink);transition:transform .25s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
+.exp-years{font-size:9.1px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.exp-chevron{flex:none;width:24px;height:24px;border:1.5px solid var(--line);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--ink);transition:transform .25s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
+.exp-chevron svg{display:block}
 .exp-trigger:hover .exp-chevron{border-color:var(--accent);color:var(--accent)}
-.exp-chevron-open{transform:rotate(180deg);background:var(--accent);border-color:var(--accent);color:#fff}
-.exp-trigger h4{font-family:var(--serif);font-size:12.4px;font-weight:500;margin:4.4px 0 0;transition:font-size .25s ease}
-.exp-trigger[aria-expanded="true"] h4{font-size:18px}
+.exp-chevron-open{transform:rotate(90deg);background:var(--accent);border-color:var(--accent);color:#fff}
+.exp-trigger h4{font-family:var(--serif);font-size:14.9px;font-weight:500;margin:4.4px 0 0;transition:font-size .25s ease}
+.exp-trigger[aria-expanded="true"] h4{font-size:21.6px}
 .exp-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
 .exp-panel-open{grid-template-rows:1fr}
 .exp-panel-inner{overflow:hidden}
-.exp-panel-inner p{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 7.2px;padding-top:1.6px;transition:font-size .25s ease}
-.exp-panel-open .exp-panel-inner p{font-size:13.5px}
+.exp-panel-inner p{font-size:12px;line-height:1.65;color:var(--muted);margin:0 0 7.2px;padding-top:1.6px;transition:font-size .25s ease}
+.exp-panel-open .exp-panel-inner p{font-size:16.2px}
 .exp-panel-inner p:last-child{margin-bottom:10.8px}
 @media(max-width:640px){.exp-trigger{padding-top:10px;padding-bottom:10px}}
 .rfi-band{background:#e2e8f2}

@@ -148,7 +148,7 @@ function ExperienceAccordion({ items, lang }: { items: ExperienceItem[]; lang: L
       return <div className="exp-item" key={i}>
         <span className={`exp-dot${isOpen ? ' exp-dot-open' : ''}`} aria-hidden="true"/>
         <button type="button" className="exp-trigger" aria-expanded={isOpen} aria-controls={panelId} onClick={() => toggle(i)}>
-          <span className="exp-meta"><span className="exp-years">{e.years} · {e.org}</span><span className={`exp-chevron${isOpen ? ' exp-chevron-open' : ''}`} aria-hidden="true">▾</span></span>
+          <span className="exp-meta"><span className="exp-years">{e.years} · {e.org}</span><span className={`exp-chevron${isOpen ? ' exp-chevron-open' : ''}`} aria-hidden="true"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>
           <h4>{t(e.role)}</h4>
         </button>
         <div className={`exp-panel${isOpen ? ' exp-panel-open' : ''}`} id={panelId} role="region">
