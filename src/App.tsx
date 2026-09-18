@@ -292,6 +292,7 @@ const diary: DiaryItem[] = [
   { image: 'cantiere-urbano-01.webp', title: { it: 'Cantiere ferroviario in ambito urbano per la realizzazione di una nuova stazione', en: 'Urban railway construction site for the delivery of a new station' }, text: { it: 'Gestione delle interferenze e della sicurezza in un cantiere ferroviario urbano.', en: 'Managing interfaces and safety on an urban railway construction site.' } },
   { image: 'cantiere-urbano-02.webp', title: { it: 'Fasi delle attività costruttive del fabbricato di stazione e della realizzazione del piano di piattaforma', en: 'Construction phases of the station building and the platform level' }, text: { it: 'Realizzazione di opere civili in un contesto urbano denso.', en: 'Delivery of civil works within a dense urban context.' } },
   { image: 'cantiere-impalcatura-verticale.webp', title: { it: 'Impalcatura verticale di cantiere', en: 'Vertical construction scaffolding' }, text: { it: 'Allestimento verticale del cantiere per interventi in quota.', en: 'Vertical site setup for works at height.' } },
+  { image: 'cantiere-vista-dal-basso.webp', title: { it: 'Vista dal basso della facciata di un edificio in cantiere', en: 'Low-angle view of a building façade under construction' }, text: { it: 'Vista dal basso della facciata di un edificio in cantiere', en: 'Low-angle view of a building façade under construction' } },
   { image: 'scavo-notturno.webp', title: { it: 'Scavo in finestra notturna', en: 'Night-window excavation' }, text: { it: 'Attività di scavo condotte in interruzioni notturne programmate.', en: 'Excavation works carried out during planned night possessions.' } },
   { image: 'muro-sostegno-dettaglio.webp', title: { it: 'Realizzazione di tiranti autoperforanti per l’ancoraggio in profondità della paratia', en: 'Installation of self-drilling anchors for the deep anchoring of the retaining wall' }, text: { it: 'Dettaglio costruttivo di un muro di sostegno lungo la linea.', en: 'Construction detail of a retaining wall along the line.' } },
   { image: 'viadotto-storico-panoramica.webp', title: { it: 'Miglioramento sismico e consolidamento di viadotto storico a 12 campate', en: 'Seismic upgrade and strengthening of a 12-span historic viaduct' }, text: { it: 'Vista panoramica di un viadotto storico in esercizio.', en: 'Panoramic view of a historic viaduct in operation.' } },
@@ -330,7 +331,7 @@ const diaryTaxonomy: DiaryCategory[] = [
     { title: { it: 'Attraversamenti', en: 'Crossings' }, images: [] },
   ] },
   { title: { it: 'Stazioni e ambito urbano', en: 'Stations and urban areas' }, subcategories: [
-    { title: { it: 'Cantieri urbani', en: 'Urban construction sites' }, images: ['cantiere-urbano-01.webp', 'cantiere-urbano-02.webp', 'cantiere-impalcatura-verticale.webp'] },
+    { title: { it: 'Cantieri urbani', en: 'Urban construction sites' }, images: ['cantiere-urbano-01.webp', 'cantiere-urbano-02.webp', 'cantiere-impalcatura-verticale.webp', 'cantiere-vista-dal-basso.webp'] },
     { title: { it: 'Riqualificazione stazioni', en: 'Station upgrades' }, images: [] },
   ] },
   { title: { it: 'Nuove infrastrutture', en: 'New infrastructure' }, subcategories: [
