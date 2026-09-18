@@ -304,6 +304,8 @@ const diary: DiaryItem[] = [
   { image: 'ponte-consolidamento.jpg', title: { it: 'Ponte, consolidamento', en: 'Bridge, strengthening' }, text: { it: 'Ponte, consolidamento', en: 'Bridge, strengthening' } },
   { image: 'portella-1.webp', title: { it: 'Portella 1', en: 'Portella 1' }, text: { it: 'Portella 1', en: 'Portella 1' } },
   { image: 'abbassamento-linee-ferroviarie.jpg', title: { it: 'Abbassamento linee ferroviarie', en: 'Lowering of railway lines' }, text: { it: 'Abbassamento linee ferroviarie', en: 'Lowering of railway lines' } },
+  { image: 'collage-stazione-gallerie.webp', title: { it: 'Stazione e gallerie: prima e dopo l’intervento', en: 'Station and tunnels: before and after the works' }, text: { it: 'Stazione e gallerie: prima e dopo l’intervento', en: 'Station and tunnels: before and after the works' } },
+  { image: 'collage-linea-dismessa-nuova.webp', title: { it: 'Da linea ferroviaria dismessa a nuova linea in esercizio', en: 'From a disused railway line to a new line in operation' }, text: { it: 'Da linea ferroviaria dismessa a nuova linea in esercizio', en: 'From a disused railway line to a new line in operation' } },
 ]
 
 // Tassonomia a 2 livelli richiesta dall'utente. Le foto sono state inserite dove
@@ -335,7 +337,7 @@ const diaryTaxonomy: DiaryCategory[] = [
     { title: { it: 'Riqualificazione stazioni', en: 'Station upgrades' }, images: [] },
   ] },
   { title: { it: 'Nuove infrastrutture', en: 'New infrastructure' }, subcategories: [
-    { title: { it: 'Nuove linee', en: 'New lines' }, images: ['abbassamento-linee-ferroviarie.jpg'] },
+    { title: { it: 'Nuove linee', en: 'New lines' }, images: ['abbassamento-linee-ferroviarie.jpg', 'collage-stazione-gallerie.webp', 'collage-linea-dismessa-nuova.webp'] },
     { title: { it: 'Opere civili', en: 'Civil works' }, images: [] },
     { title: { it: 'Armamento e tecnologie', en: 'Trackwork and technology' }, images: [] },
   ] },
