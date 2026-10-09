@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import DiaryCoverFlow from './DiaryCoverFlow'
 import { PublicationLinks, type PublicationLinksHandle } from './Flipbook'
 
 type Lang = 'it' | 'en'
@@ -450,7 +451,7 @@ function App() {
             </div>}
             {cat.subcategories.map((sub, si) => si === (diarySub[ci] ?? 0) && <div className="diary-subcategory" key={si}>
               {sub.images.length > 0
-                ? <DiaryPhotoGrid images={sub.images} lang={lang} tag={`${t(cat.title)} › ${t(sub.title)}`}/>
+                ? <DiaryCoverFlow key={`${ci}-${si}`} slides={sub.images.map(img => diary.find(d => d.image === img)).filter((d): d is DiaryItem => !!d)} sub={sub.title} lang={lang} tag={`${t(cat.title)} › ${t(sub.title)}`}/>
                 : <p className="diary-empty">{lang === 'it' ? '— nessuna foto assegnata —' : '— no photos assigned yet —'}</p>}
             </div>)}
           </div>)}
