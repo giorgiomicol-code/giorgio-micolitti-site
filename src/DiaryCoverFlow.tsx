@@ -84,7 +84,9 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang }: { slides: Cov
   const small = W < 640
   const stageH = Math.max(400, Math.min(580, W * 0.6))
   const SH = small ? 54 : 66
-  const ratio = (s: CoverFlowSlide) => dims[s.image] ?? 4 / 3
+  const MIN_R = 0.62 // foto molto strette: scheda minima, foto intera senza ritaglio
+  const realRatio = (s: CoverFlowSlide) => dims[s.image] ?? 4 / 3
+  const ratio = (s: CoverFlowSlide) => Math.max(realRatio(s), MIN_R)
   const maxR = Math.max(...slides.map(ratio), 0.5)
   const photoH = Math.round(Math.min(stageH * (small ? 0.5 : 0.58), (W * (small ? 0.8 : 0.56)) / maxR))
   const widths = slides.map(s => Math.round(photoH * ratio(s)))
@@ -129,7 +131,7 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang }: { slides: Cov
             className={'cf-card' + (o !== 0 ? ' side' : '') + (ab > V ? ' far' : '')}
             tabIndex={o === 0 ? 0 : -1} aria-label={s.title[lang]} aria-current={o === 0 ? 'true' : undefined}
             onClick={() => { if (drag.current.moved) return; if (i === cur) setLb(true); else goTo(i) }}>
-            <span className="cf-ph" style={{ height: photoH }}><img src={`./images/${s.image}`} alt={s.title[lang]} loading={ab <= 1 ? 'eager' : 'lazy'} draggable={false}/></span>
+            <span className="cf-ph" style={{ height: photoH }}><img className={realRatio(s) < MIN_R ? 'fit' : undefined} src={`./images/${s.image}`} alt={s.title[lang]} loading={ab <= 1 ? 'eager' : 'lazy'} draggable={false}/></span>
             <span className="cf-strip"><span>{sub[lang]}</span></span>
           </button>
         })}
