@@ -315,19 +315,19 @@ const diary: DiaryItem[] = [
 // Le sottocategorie senza foto restano vuote, pronte a riceverle in seguito.
 const diaryTaxonomy: DiaryCategory[] = [
   { title: { it: 'Ponti e viadotti', en: 'Bridges and viaducts' }, subcategories: [
-    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['ponte-arco-restauro.webp', 'viadotto-storico-panoramica.webp', 'vallone-scarpa-viadotto.jpg'] },
-    { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: ['pomezia.jpg', 'varo-ponte-collage.webp', 'varo-ponte-panoramica.webp', 'varo-ponte-verde-aereo.webp', 'portella-1.webp', 'ponte-reticolare-collage-01.webp', 'varo-ponte-notturno.webp', 'ponte-reticolare-collage-02-ritratto.webp'] },
+    { title: { it: 'Consolidamento strutturale', en: 'Structural strengthening' }, images: ['viadotto-storico-panoramica.webp', 'vallone-scarpa-viadotto.jpg', 'ponte-arco-restauro.webp'] },
+    { title: { it: 'Adeguamento sagoma PC80', en: 'PC80 gauge upgrade' }, images: ['varo-ponte-panoramica.webp', 'varo-ponte-verde-aereo.webp', 'portella-1.webp', 'ponte-reticolare-collage-01.webp', 'varo-ponte-notturno.webp', 'ponte-reticolare-collage-02-ritratto.webp', 'pomezia.jpg', 'varo-ponte-collage.webp'] },
     { title: { it: 'Sostituzione e nuova costruzione', en: 'Replacement and new construction' }, images: ['demolizione-arco-muratura-collage.webp', 'demolizione-ponte.jpg', 'ponte-consolidamento.jpg'] },
     { title: { it: 'Varo e cantiere', en: 'Launch and site works' }, images: [] },
-    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['sottovia-collage-4foto.webp', 'sottovia-aereo-scatolare.webp', 'scavo-notturno.webp', 'scatolare-coprem.webp'] },
-  ] },
-  { title: { it: 'Geotecnica e rilevati', en: 'Geotechnics and embankments' }, subcategories: [
-    { title: { it: 'Rilevati ferroviari, scarpate e stabilizzazione', en: 'Railway embankments, slopes and stabilisation' }, images: ['consolidamento-scarpata.webp', 'scarpata-lanuvio.webp', 'muro-sostegno-dettaglio.webp'] },
-    { title: { it: 'Opere in terra', en: 'Earthworks' }, images: [] },
+    { title: { it: 'Sottovia scatolari', en: 'Box underpasses' }, images: ['scatolare-coprem.webp', 'sottovia-collage-4foto.webp', 'sottovia-aereo-scatolare.webp', 'scavo-notturno.webp'] },
   ] },
   { title: { it: 'Gallerie', en: 'Tunnels' }, subcategories: [
     { title: { it: 'Consolidamento e adeguamento', en: 'Strengthening and upgrading' }, images: ['galleria-scavo-fresa.webp', 'galleria-orte-1.webp', 'galleria-orte-2.webp', 'galleria-orte-3.webp'] },
     { title: { it: 'Impiantistica e tecnologie per la sicurezza nelle gallerie ferroviarie: sistemi di messa in sovrappressione', en: 'Systems and technologies for railway tunnel safety: pressurisation systems' }, images: ['galleria-prima-dopo-collage.webp', 'galleria-percorrenza.webp', 'galleria-interno-02.webp', 'galleria-interno-01.webp', 'galleria-interno-scavo.webp'] },
+  ] },
+  { title: { it: 'Geotecnica e rilevati', en: 'Geotechnics and embankments' }, subcategories: [
+    { title: { it: 'Rilevati ferroviari, scarpate e stabilizzazione', en: 'Railway embankments, slopes and stabilisation' }, images: ['consolidamento-scarpata.webp', 'scarpata-lanuvio.webp', 'muro-sostegno-dettaglio.webp'] },
+    { title: { it: 'Opere in terra', en: 'Earthworks' }, images: [] },
   ] },
   { title: { it: 'Opere idrauliche', en: 'Hydraulic works' }, subcategories: [
     { title: { it: 'Compatibilità idraulica', en: 'Hydraulic compatibility' }, images: [] },
