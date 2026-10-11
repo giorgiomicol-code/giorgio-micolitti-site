@@ -26,3 +26,10 @@ export const PublicationLinks = forwardRef<PublicationLinksHandle, { pdf: string
     </div>
   }
 )
+
+/** Apre lo stesso lettore di PublicationLinks, da un controllo esterno (es. cover flow). */
+export function PublicationModal({ pdf, title, lang, onClose }: { pdf: string; title: string; lang: Lang; onClose: () => void }) {
+  return <Suspense fallback={modalFallback}>
+    <FlipbookModal url={`./publications/${pdf}`} title={title} lang={lang} onClose={onClose}/>
+  </Suspense>
+}

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './DiaryCoverFlow.css'
 
@@ -10,9 +11,24 @@ const UI = {
   en: { photo: 'Photo', prev: 'Previous photo', next: 'Next photo', close: 'Close', cover: 'Back to cover', coverTag: 'cover', track: 'Browse photos', hint: 'Drag, use the arrows or the track. After the last photo it loops back to the first. Tap the centre photo to enlarge it. The bronze mark is the cover.' },
 }
 
-export default function DiaryCoverFlow({ slides, tag, sub, lang }: { slides: CoverFlowSlide[]; tag: string; sub: Copy; lang: Lang }) {
+export type CoverFlowExtras = {
+  /** variante "pubblicazioni": niente copertina/bronzo, foto più alte */
+  pub?: boolean
+  /** al clic sulla scheda centrale, invece dell'ingrandimento */
+  onOpen?: (i: number) => void
+  /** testo della striscia per scheda (default: sottosettore) */
+  strips?: Copy[]
+  /** etichetta sopra il titolo, per scheda */
+  tags?: string[]
+  /** contenuto sotto la didascalia (es. pulsanti) */
+  extra?: (i: number) => ReactNode
+  hint?: Copy
+  noun?: Copy
+}
+
+export default function DiaryCoverFlow({ slides, tag, sub, lang, pub, onOpen, strips, tags, extra, hint, noun }: { slides: CoverFlowSlide[]; tag: string; sub: Copy; lang: Lang } & CoverFlowExtras) {
   const n = slides.length
-  const ui = UI[lang]
+  const ui = { ...UI[lang], ...(hint ? { hint: hint[lang] } : {}), ...(noun ? { photo: noun[lang] } : {}) }
   const [cur, setCur] = useState(0)
   const [jump, setJump] = useState<number[]>([])
   const [dims, setDims] = useState<Record<string, number>>({})
@@ -82,13 +98,13 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang }: { slides: Cov
 
   // geometria
   const small = W < 640
-  const stageH = Math.max(400, Math.min(580, W * 0.6))
+  const stageH = Math.max(pub ? 480 : 400, Math.min(pub ? 640 : 580, W * (pub ? 0.66 : 0.6)))
   const SH = small ? 54 : 66
   const MIN_R = 0.62 // foto molto strette: scheda minima, foto intera senza ritaglio
   const realRatio = (s: CoverFlowSlide) => dims[s.image] ?? 4 / 3
   const ratio = (s: CoverFlowSlide) => Math.max(realRatio(s), MIN_R)
   const maxR = Math.max(...slides.map(ratio), 0.5)
-  const photoH = Math.round(Math.min(stageH * (small ? 0.5 : 0.58), (W * (small ? 0.8 : 0.56)) / maxR))
+  const photoH = Math.round(Math.min(stageH * (small ? (pub ? 0.56 : 0.5) : (pub ? 0.64 : 0.58)), (W * (small ? 0.8 : 0.56)) / maxR))
   const widths = slides.map(s => Math.round(photoH * ratio(s)))
   const cw = widths[cur] ?? 0
   const gstep = small ? 24 : Math.max(34, W * 0.05)
@@ -127,12 +143,12 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang }: { slides: Cov
               : `translate3d(${sg * (cw / 2 + gap + w * Math.cos(angle * Math.PI / 180) * 0.5 + (ab - 1) * gstep)}px,0,${-140 - ab * 30}px) rotateY(${-sg * angle}deg)`,
           }
           if (jump.includes(i)) { style.transition = 'none'; style.opacity = 0 }
-          return <button type="button" key={s.image} style={style}
+          return <button type="button" key={i} style={style}
             className={'cf-card' + (o !== 0 ? ' side' : '') + (ab > V ? ' far' : '')}
             tabIndex={o === 0 ? 0 : -1} aria-label={s.title[lang]} aria-current={o === 0 ? 'true' : undefined}
-            onClick={() => { if (drag.current.moved) return; if (i === cur) setLb(true); else goTo(i) }}>
+            onClick={() => { if (drag.current.moved) return; if (i === cur) { if (onOpen) onOpen(i); else setLb(true) } else goTo(i) }}>
             <span className="cf-ph" style={{ height: photoH }}><img className={realRatio(s) < MIN_R ? 'fit' : undefined} src={`./images/${s.image}`} alt={s.title[lang]} loading={ab <= 1 ? 'eager' : 'lazy'} draggable={false}/></span>
-            <span className="cf-strip"><span>{sub[lang]}</span></span>
+            <span className="cf-strip"><span>{(strips ? strips[i] : sub)[lang]}</span></span>
           </button>
         })}
       </div>
@@ -143,18 +159,19 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang }: { slides: Cov
       <span className="cf-counter" aria-live="polite">{ui.photo} {cur + 1}/{n}</span>
       <button type="button" className="cf-circ" aria-label={ui.next} disabled={n < 2} onClick={() => step(1)}><svg viewBox="0 0 16 16"><path d="m6 2 6 6-6 6"/></svg></button>
     </div>
-    <div className="cf-tools"><button type="button" disabled={cur === 0} onClick={() => goTo(0)}>{ui.cover}</button></div>
+    {!pub && <div className="cf-tools"><button type="button" disabled={cur === 0} onClick={() => goTo(0)}>{ui.cover}</button></div>}
 
     <div className="cf-cap" aria-live="polite">
-      <span className="cf-tag">{tag}{cur === 0 ? ` · ${ui.coverTag}` : ''}</span>
+      <span className="cf-tag">{tags ? tags[cur] : tag}{!pub && cur === 0 ? ` · ${ui.coverTag}` : ''}</span>
       <h4>{title}</h4>
       {text && text !== title && <p>{text}</p>}
+      {extra && <div className="cf-extra">{extra(cur)}</div>}
     </div>
 
     {n > 1 && <div className="cf-rail">
       <div className="cf-railbox">
         <div className="cf-line"/>
-        {slides.map((s, i) => <div key={s.image} className={'cf-sleeper' + (i === 0 ? ' st' : '')} style={{ left: `${(i / (n - 1)) * 100}%` }}/>)}
+        {slides.map((_, i) => <div key={i} className={'cf-sleeper' + (!pub && i === 0 ? ' st' : '')} style={{ left: `${(i / (n - 1)) * 100}%` }}/>)}
         <input type="range" min={0} max={n - 1} step={1} value={cur} aria-label={ui.track} onChange={e => goTo(+e.target.value)}/>
       </div>
     </div>}

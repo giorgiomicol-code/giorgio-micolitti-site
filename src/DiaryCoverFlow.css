@@ -48,3 +48,7 @@
 .cf-x{position:absolute;top:14px;right:14px;background:none;border:1px solid rgba(238,241,243,.4);color:#eef1f3;width:40px;height:40px;cursor:pointer;font-size:20px;line-height:1}
 @media (max-width:640px){.cf-circ{width:40px;height:40px}.cf-strip{padding:5px 10px}.cf-cap{min-height:150px}}
 @media (prefers-reduced-motion:reduce){.cf-card{transition:none}}
+.cf-extra{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.cf .pub-flip-btn{color:#fff;background:var(--ink)}
+.cf .pub-flip-btn-en{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.cf .pub-flip-btn-en:hover{background:var(--ink);color:#fff}
