@@ -98,19 +98,21 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang, pub, onOpen, st
 
   // geometria
   const small = W < 640
-  const stageH = Math.max(pub ? 480 : 400, Math.min(pub ? 640 : 580, W * (pub ? 0.66 : 0.6)))
+  const stageH = Math.max(pub ? 520 : 400, Math.min(pub ? 680 : 580, W * (pub ? 0.7 : 0.6)))
   const SH = small ? 54 : 66
   const MIN_R = 0.62 // foto molto strette: scheda minima, foto intera senza ritaglio
   const realRatio = (s: CoverFlowSlide) => dims[s.image] ?? 4 / 3
   const ratio = (s: CoverFlowSlide) => Math.max(realRatio(s), MIN_R)
   const maxR = Math.max(...slides.map(ratio), 0.5)
-  const photoH = Math.round(Math.min(stageH * (small ? (pub ? 0.56 : 0.5) : (pub ? 0.64 : 0.58)), (W * (small ? 0.8 : 0.56)) / maxR))
+  const photoH = Math.round(Math.min(stageH * (small ? (pub ? 0.56 : 0.5) : (pub ? 0.68 : 0.58)), (W * (small ? 0.8 : 0.56)) / maxR))
   const widths = slides.map(s => Math.round(photoH * ratio(s)))
   const cw = widths[cur] ?? 0
-  const gstep = small ? 24 : Math.max(34, W * 0.05)
+  const angle = pub ? 46 : small ? 60 : 54
+  const avgW = widths.reduce((a, b) => a + b, 0) / (widths.length || 1)
+  // pubblicazioni: nessuna scheda copre il bordo della vicina
+  const gstep = pub ? avgW * Math.cos(angle * Math.PI / 180) + 14 : small ? 24 : Math.max(34, W * 0.05)
   const gap = small ? 14 : 30
-  const angle = small ? 60 : 54
-  const V = Math.min(small ? 2 : 3, Math.floor(n / 2))
+  const V = Math.min(pub ? (small ? 1 : 2) : small ? 2 : 3, Math.floor(n / 2))
 
   const onDown = (e: React.PointerEvent) => { drag.current = { on: true, sx: e.clientX, acc: 0, moved: false } }
   const onMove = (e: React.PointerEvent) => {
