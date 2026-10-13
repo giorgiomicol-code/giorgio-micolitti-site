@@ -7,8 +7,8 @@ type Copy = { it: string; en: string }
 export type CoverFlowSlide = { image: string; title: Copy; text: Copy }
 
 const UI = {
-  it: { photo: 'Foto', prev: 'Foto precedente', next: 'Foto successiva', close: 'Chiudi', cover: 'Torna alla copertina', coverTag: 'copertina', track: 'Scorri le foto', hint: 'Trascina, usa le frecce o il binario. Dall’ultima foto si torna alla prima. Tocca la foto al centro per ingrandirla. Il segno bronzo indica la copertina.' },
-  en: { photo: 'Photo', prev: 'Previous photo', next: 'Next photo', close: 'Close', cover: 'Back to cover', coverTag: 'cover', track: 'Browse photos', hint: 'Drag, use the arrows or the track. After the last photo it loops back to the first. Tap the centre photo to enlarge it. The bronze mark is the cover.' },
+  it: { photo: 'Foto', prev: 'Foto precedente', next: 'Foto successiva', close: 'Chiudi', cover: 'Torna alla copertina', coverTag: 'copertina', hint: 'Trascina o usa le frecce. Dall’ultima foto si torna alla prima. Tocca la foto al centro per ingrandirla.' },
+  en: { photo: 'Photo', prev: 'Previous photo', next: 'Next photo', close: 'Close', cover: 'Back to cover', coverTag: 'cover', hint: 'Drag or use the arrows. After the last photo it loops back to the first. Tap the centre photo to enlarge it.' },
 }
 
 export type CoverFlowExtras = {
@@ -170,13 +170,6 @@ export default function DiaryCoverFlow({ slides, tag, sub, lang, pub, onOpen, st
       {extra && <div className="cf-extra">{extra(cur)}</div>}
     </div>
 
-    {n > 1 && <div className="cf-rail">
-      <div className="cf-railbox">
-        <div className="cf-line"/>
-        {slides.map((_, i) => <div key={i} className={'cf-sleeper' + (!pub && i === 0 ? ' st' : '')} style={{ left: `${(i / (n - 1)) * 100}%` }}/>)}
-        <input type="range" min={0} max={n - 1} step={1} value={cur} aria-label={ui.track} onChange={e => goTo(+e.target.value)}/>
-      </div>
-    </div>}
     <p className="cf-hint">{ui.hint}</p>
 
     {lb && <div className="cf-lb" role="dialog" aria-modal="true" onClick={e => { if (e.target === e.currentTarget) setLb(false) }}>

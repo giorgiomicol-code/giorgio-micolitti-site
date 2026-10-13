@@ -415,7 +415,7 @@ function PubCoverFlow({ lang, t }: { lang: Lang; t: (x: Copy) => string }) {
       tags={items.map(p => `${lang === 'it' ? 'Pubblicazione' : 'Publication'} · ${p.year}`)}
       strips={items.map(p => ({ it: `${p.year} · ${p.source.split(' · ')[0]}`, en: `${p.year} · ${p.source.split(' · ')[0]}` }))}
       noun={{ it: 'Pubblicazione', en: 'Publication' }}
-      hint={{ it: 'Trascina, usa le frecce o il binario. Tocca la copertina al centro per sfogliare la pubblicazione.', en: 'Drag, use the arrows or the track. Tap the centre cover to browse the publication.' }}
+      hint={{ it: 'Trascina o usa le frecce. Tocca la copertina al centro per sfogliare la pubblicazione.', en: 'Drag or use the arrows. Tap the centre cover to browse the publication.' }}
       onOpen={i => open(i)}
       extra={i => <>
         <button type="button" className="pub-flip-btn" onClick={() => open(i)}>{lang === 'it' ? 'Sfoglia ↗' : 'Browse ↗'}</button>
